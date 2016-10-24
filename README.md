@@ -1,2 +1,7 @@
 # Eclipse
-Unity2D Platformer
+Unity2D Puzzle/Platformer
+
+## Authors
+François DECAN - Marine RIPON
+
+
