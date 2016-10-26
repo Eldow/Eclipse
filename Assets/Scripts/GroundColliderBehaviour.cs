@@ -2,31 +2,30 @@
 using System.Collections;
 
 public class GroundColliderBehaviour : MonoBehaviour {
-
-    PlayerBehaviour parent;
+    public GameObject player;
+    private PlayerBehaviour playerBehaviour;
     void Start()
     {
-        parent = gameObject.GetComponentInParent<PlayerBehaviour>();
+        playerBehaviour = player.GetComponent<PlayerBehaviour>();
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (!parent.grounded)
+        if (!playerBehaviour.grounded)
         {
-            if (other.gameObject.tag == "Ground")
+            if (other.gameObject.CompareTag("Ground"))
             {
-                parent.grounded = true;
+                playerBehaviour.grounded = true;
             }
         }
-
     }
     void OnCollisionExit2D(Collision2D other)
     {
-        if (parent.grounded)
+        if (playerBehaviour.grounded)
         {
-            if (other.gameObject.tag == "Ground")
+            if (other.gameObject.CompareTag("Ground"))
             {
-                parent.grounded = false;
+                playerBehaviour.grounded = false;
             }
         }
     }

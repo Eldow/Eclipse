@@ -16,8 +16,8 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        body = gameObject.GetComponent<Rigidbody2D>();
-        anim = gameObject.GetComponent<Animator>();
+        body = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -51,12 +51,12 @@ public class PlayerBehaviour : MonoBehaviour {
         float h = Input.GetAxis("Horizontal");
         if ((h < 0) && (speed < MAX_SPEED))
         {
-            body.GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = true;
             speed = speed + accel * Time.deltaTime;
         }
         else if ((h > 0) && (speed < MAX_SPEED))
         {
-            body.GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = false;
             speed = speed + accel * Time.deltaTime;
         }
         else
@@ -68,5 +68,4 @@ public class PlayerBehaviour : MonoBehaviour {
         }
         body.position = new Vector2(body.position.x + speed * Time.deltaTime * h, body.position.y);
     }
-
 }
