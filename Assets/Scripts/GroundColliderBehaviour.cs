@@ -2,11 +2,10 @@
 using System.Collections;
 
 public class GroundColliderBehaviour : MonoBehaviour {
-    public GameObject player;
     private PlayerBehaviour playerBehaviour;
     void Start()
     {
-        playerBehaviour = player.GetComponent<PlayerBehaviour>();
+        playerBehaviour = GetComponentInParent<PlayerBehaviour>();
     }
 
     void OnCollisionEnter2D(Collision2D other)

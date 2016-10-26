@@ -20,26 +20,22 @@ public class LeverBehaviour : MonoBehaviour {
         //Lever Animations
         anim = GetComponent<Animator>();
         shadowAnim = GameObject.Find("Lever Shadow").GetComponent<Animator>();
-        PlayerSwitcher.StartWith(player);
+        PlayerSwitcher.Setup(player);
     }
 	
     //Update
     void Update()
     {
+        //Link to animations parameters
+        anim.SetBool("activated", activated);
+        if (shadowAnim.isActiveAndEnabled)
+            shadowAnim.SetBool("activated", activated);
         //If player is colliding the trigger & pressing down key & active
         if (inTrigger && Input.GetKeyDown("down") && player.activeInHierarchy)
         {
             activated = !activated;
+            TriggerAction();
         }
-        TriggerAction();
-    }
-    //Fixed Update
-    void FixedUpdate()
-    {
-        //Link to animations parameters
-        anim.SetBool("activated", activated);
-        if(shadowAnim.isActiveAndEnabled)
-            shadowAnim.SetBool("activated", activated);
     }
     //Lever's action : custom this as you want
     void TriggerAction()

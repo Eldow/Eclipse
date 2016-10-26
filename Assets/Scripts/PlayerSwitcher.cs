@@ -9,7 +9,7 @@ public static class PlayerSwitcher {
 
     private static ArrayList shadowWorld = new ArrayList();
 
-    public static void StartWith(GameObject currentPlayer)
+    public static void Setup(GameObject currentPlayer)
     {
         GameObject[] objects = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
         foreach (GameObject o in objects)

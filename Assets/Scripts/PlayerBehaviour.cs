@@ -3,8 +3,7 @@ using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour {
 
-    const float MAX_SPEED = 3;
-
+    public float MAX_SPEED = 3f;
     public float speed = 50f;
     public float jumpPower = 150f;
     public bool grounded;
@@ -21,20 +20,15 @@ public class PlayerBehaviour : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-    }
-
-    // Fixed Update
-    void FixedUpdate()
-    {
+	void FixedUpdate () {
         anim.SetBool("grounded", grounded);
         anim.SetFloat("speed", speed);
         //Vertical movement
         Jump();
         //Horizontal movement
-        Move();       
+        Move();
     }
+
     void Jump()
     {
         if (Input.GetKey("up"))
