@@ -71,7 +71,13 @@ public class Snake : MonoBehaviour, PlayerInterface {
     }
     public void Activate()
     {
+        StartCoroutine(ActivateAnim());
+    }
+    IEnumerator ActivateAnim()
+    {
         activating = true;
+        yield return new WaitForSeconds(0.5f);
+        activating = false;
     }
     public void Desactivate()
     {

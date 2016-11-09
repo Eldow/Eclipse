@@ -50,7 +50,7 @@ public class Mummy : MonoBehaviour, PlayerInterface {
 
     void Jump()
     {
-        if (Input.GetAxis("Vertical") > 0)
+        if (Input.GetButtonDown("Jump"))
         {
             if (grounded)
             {

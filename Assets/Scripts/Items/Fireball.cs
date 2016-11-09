@@ -31,7 +31,8 @@ public class Fireball : MonoBehaviour {
     IEnumerator Kill(GameObject o)
     {
         render.enabled = false;
-        o.GetComponent<Animator>().SetBool("grounded", false);
+        if(o.Equals(Switcher.instance.prof) || o.Equals(Switcher.instance.profShadow))
+            o.GetComponent<Animator>().SetBool("dead", true);
         yield return new WaitForSeconds(0.5f);
         Destroy(o);
         if (o.Equals(Switcher.instance.currentPlayer))

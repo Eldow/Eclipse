@@ -10,6 +10,7 @@ public class Animal : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        animal = gameObject.transform.parent.gameObject.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
     }
 
     // Update is called once per frame
@@ -25,14 +26,14 @@ public class Animal : MonoBehaviour
     }
     IEnumerator WaitForEnter()
     {
-        entered = true;
-        yield return new WaitForSeconds(0.5f);
+        entered = false;
+        yield return new WaitForSeconds(1f);
         entered = true;
     }
     IEnumerator WaitForExit()
     {
         exited = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         if(animal != null)
             animal.Idle();
         exited = false;
@@ -44,7 +45,6 @@ public class Animal : MonoBehaviour
         {
             Switcher.instance.SetCurrentPlayer(gameObject.transform.parent.gameObject);
             Switcher.instance.profShadow.SetActive(false);
-            animal = gameObject.transform.parent.gameObject.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
             StartCoroutine(WaitForEnter());
         }
     }

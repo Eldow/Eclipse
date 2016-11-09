@@ -25,6 +25,7 @@ public class Prof : MonoBehaviour, PlayerInterface {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         groundCollider = GetComponentInChildren<GroundCollider>();
+        anim.SetBool("dead", false);
     }
 	
 	// Update is called once per frame
@@ -100,7 +101,13 @@ public class Prof : MonoBehaviour, PlayerInterface {
     }
     public void Activate()
     {
+        StartCoroutine(ActivateAnim());
+    }
+    IEnumerator ActivateAnim()
+    {
         activating = true;
+        yield return new WaitForSeconds(0.5f);
+        activating = false;
     }
     public void Desactivate()
     {

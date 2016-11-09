@@ -29,6 +29,7 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
         render = GetComponent<SpriteRenderer>();
         groundCollider = GetComponentInChildren<GroundCollider>();
         wallCollider = GetComponentInChildren<WallCollider>();
+        anim.SetBool("dead", false);
     }
 
     // Update is called once per frame
@@ -120,7 +121,13 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
 
     public void Activate()
     {
+        StartCoroutine(ActivateAnim());
+    }
+    IEnumerator ActivateAnim()
+    {
         activating = true;
+        yield return new WaitForSeconds(0.5f);
+        activating = false;
     }
     public void Desactivate()
     {

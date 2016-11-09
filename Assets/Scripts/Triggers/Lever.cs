@@ -12,6 +12,7 @@ public class Lever : MonoBehaviour {
     public List<GameObject> targets;
     private Lever linkedLever;
     private GameObject currentLever;
+    private AudioSource audio;
 
     // Use this for initialization
     void Start()
@@ -30,21 +31,25 @@ public class Lever : MonoBehaviour {
         {
             activableTargets.Add(target.gameObject.GetComponent(typeof(ActivableInterface)) as ActivableInterface);
         }
+        audio = gameObject.GetComponent<AudioSource>();
     }
 
     //Update
-    void OnTriggerStay2D()
+    void OnTriggerStay2D(Collider2D other)
     {
-        //Link to animations parameters
-        anim.SetBool("activated", activated);
-        linkedLever.GetComponent<Animator>().SetBool("activated", activated);
-        //If player is colliding the trigger & pressing down key
-        if (triggered && Input.GetButtonDown("Action"))
+        if (other.gameObject.Equals(Switcher.instance.currentPlayer))
         {
-            triggered = false;
-            activated = !activated;
-            linkedLever.activated = activated;
-            StartCoroutine(TriggerAction());
+            //Link to animations parameters
+            anim.SetBool("activated", activated);
+            linkedLever.GetComponent<Animator>().SetBool("activated", activated);
+            //If player is colliding the trigger & pressing down key
+            if (triggered && Input.GetButtonDown("Action"))
+            {
+                triggered = false;
+                activated = !activated;
+                linkedLever.activated = activated;
+                StartCoroutine(TriggerAction());
+            }
         }
     }
     //Lever's action : custom this as you want
@@ -52,8 +57,10 @@ public class Lever : MonoBehaviour {
     {
         if(player != null)
         {
+            audio.Play();
             player.Activate();
             yield return new WaitForSeconds(0.5f);
+            //player.Desactivate();
             //Here do the action - switch light etc.
             foreach (ActivableInterface a in activableTargets)
             {
@@ -66,7 +73,6 @@ public class Lever : MonoBehaviour {
                     a.Desactivate();
                 }
             }
-            player.Desactivate();
             triggered = true;
         }
     }
