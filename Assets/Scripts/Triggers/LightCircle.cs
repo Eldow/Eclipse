@@ -5,6 +5,7 @@ public class LightCircle : MonoBehaviour {
     private bool triggered;
     private bool swapped;
     public bool activated;
+    PlayerInterface player;
 
 	// Use this for initialization
 	void Start () {
@@ -33,7 +34,9 @@ public class LightCircle : MonoBehaviour {
 	}
     IEnumerator SwitchTo(GameObject o)
     {
-        yield return new WaitForSeconds(0.02f);
+        PlayerInterface player = Switcher.instance.currentPlayer.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
+        player.Idle();
+        yield return new WaitForSeconds(0.1f);
         Switcher.instance.SetCurrentPlayer(o);
         swapped = false;
         triggered = false;

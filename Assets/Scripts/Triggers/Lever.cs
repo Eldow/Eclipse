@@ -12,7 +12,7 @@ public class Lever : MonoBehaviour {
     public List<GameObject> targets;
     private Lever linkedLever;
     private GameObject currentLever;
-    private AudioSource audio;
+    private AudioSource sound;
 
     // Use this for initialization
     void Start()
@@ -31,7 +31,7 @@ public class Lever : MonoBehaviour {
         {
             activableTargets.Add(target.gameObject.GetComponent(typeof(ActivableInterface)) as ActivableInterface);
         }
-        audio = gameObject.GetComponent<AudioSource>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     //Update
@@ -39,12 +39,14 @@ public class Lever : MonoBehaviour {
     {
         if (other.gameObject.Equals(Switcher.instance.currentPlayer))
         {
+            player = other.gameObject.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
             //Link to animations parameters
             anim.SetBool("activated", activated);
             linkedLever.GetComponent<Animator>().SetBool("activated", activated);
             //If player is colliding the trigger & pressing down key
             if (triggered && Input.GetButtonDown("Action"))
             {
+                sound.Play();
                 triggered = false;
                 activated = !activated;
                 linkedLever.activated = activated;
@@ -57,7 +59,6 @@ public class Lever : MonoBehaviour {
     {
         if(player != null)
         {
-            audio.Play();
             player.Activate();
             yield return new WaitForSeconds(0.5f);
             //player.Desactivate();
@@ -81,7 +82,6 @@ public class Lever : MonoBehaviour {
     {
         if (other.gameObject.Equals(Switcher.instance.currentPlayer) && !triggered)
         {
-            player = other.gameObject.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
             triggered = true;
         }
     }
@@ -91,7 +91,6 @@ public class Lever : MonoBehaviour {
         if (other.gameObject.Equals(Switcher.instance.currentPlayer))
         {
             triggered = false;
-            player = null;
         }
     }
 }

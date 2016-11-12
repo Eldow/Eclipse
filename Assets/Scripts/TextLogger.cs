@@ -14,6 +14,7 @@ public class TextLogger : MonoBehaviour {
     private bool typing = false;
     private Coroutine routine;
     private bool doublePress;
+    public AudioClip sound;
 
     public void SetSpriteAndText(Sprite sprite, string text)
     {
@@ -36,7 +37,6 @@ public class TextLogger : MonoBehaviour {
             image.sprite = head;
             if (!typing)
             {
-                Debug.Log(message);
                 typing = true;
                 routine = StartCoroutine(TypeText());
             }
@@ -62,8 +62,9 @@ public class TextLogger : MonoBehaviour {
     {
         foreach (char letter in message.ToCharArray())
         {
+            SoundManager.instance.RandomizeSfx(sound);
             textBox.text += letter;
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 }

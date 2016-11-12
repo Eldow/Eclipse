@@ -33,20 +33,19 @@ public class Cultist : MonoBehaviour, MovableInterface {
         body.position = new Vector2(transform.position.x + speed * Time.deltaTime * h, transform.position.y);
     }
 
-    IEnumerator AnimateAttack()
+    IEnumerator AnimateAttack(GameObject o)
     {
-        yield return new WaitForSeconds(2f);
-        Stage.instance.ResetStage();
+        yield return new WaitForSeconds(1f);
+        Switcher.instance.KillPlayer(o);
     }
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.Equals(Switcher.instance.currentPlayer))
         {
             attacking = true;
-            StartCoroutine(AnimateAttack());
+            StartCoroutine(AnimateAttack(other.gameObject));
         }
     }
-    
     public void Flip()
     {
         h = -h;

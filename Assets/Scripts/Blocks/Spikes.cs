@@ -2,10 +2,8 @@
 using System.Collections;
 
 public class Spikes : MonoBehaviour {
-
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
@@ -17,7 +15,7 @@ public class Spikes : MonoBehaviour {
     {
         if (other.gameObject.Equals(Switcher.instance.currentPlayer))
         {
-            Stage.instance.ResetStage();
+            Switcher.instance.KillPlayer(other.gameObject);
         } else if (other.gameObject.CompareTag("Player"))
         {
             Destroy(other.gameObject);

@@ -28,25 +28,14 @@ public class Fireball : MonoBehaviour {
         Destroy(o);
         Destroy(gameObject);
     }
-    IEnumerator Kill(GameObject o)
-    {
-        render.enabled = false;
-        if(o.Equals(Switcher.instance.prof) || o.Equals(Switcher.instance.profShadow))
-            o.GetComponent<Animator>().SetBool("dead", true);
-        yield return new WaitForSeconds(0.5f);
-        Destroy(o);
-        if (o.Equals(Switcher.instance.currentPlayer))
-        {
-            Stage.instance.ResetStage();
-        }
-        Destroy(gameObject);
-    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ennemy"))
         {
             // Here, play a sound and an animation depending on what is hit
-            StartCoroutine(Kill(other.gameObject));
+            render.enabled = false;
+            Switcher.instance.KillPlayer(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Breakable"))
         {

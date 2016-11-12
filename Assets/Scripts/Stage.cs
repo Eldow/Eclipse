@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Stage : MonoBehaviour {
     public PlayerData data = new PlayerData();
     public static Stage instance;
+    public AudioClip stageMusic;
     // Use this for initialization
     void Awake()
     {
@@ -28,8 +29,8 @@ public class Stage : MonoBehaviour {
         Switcher.instance.Setup();
     }
 	void Start () {
-
-	}
+        SoundManager.instance.PlayMusic(stageMusic);
+    }
 	
 	// Update is called once per frame
 	void Update () {

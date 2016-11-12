@@ -141,8 +141,6 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
         {
             coll.enabled = true;
         }
-        MAX_SPEED = 8;
-        jumpPower = 12f;
         disabled = false;
     }
     public void Disable()

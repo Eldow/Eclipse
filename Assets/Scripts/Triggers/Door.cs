@@ -5,10 +5,10 @@ public class Door : MonoBehaviour {
     public bool locked;
     private Collider2D coll;
     private Animator anim;
-    private AudioSource audio;
+    private AudioSource sound;
 	// Use this for initialization
 	void Start () {
-        audio = gameObject.GetComponent<AudioSource>();
+        sound = gameObject.GetComponent<AudioSource>();
         locked = true;
         anim = GetComponent<Animator>();
         anim.SetBool("locked", locked);
@@ -30,7 +30,7 @@ public class Door : MonoBehaviour {
     {
         if (other.gameObject.Equals(Switcher.instance.prof) && !locked)
         {
-            audio.Play();
+            sound.Play();
             StartCoroutine(ToNextStage());
         }
     }

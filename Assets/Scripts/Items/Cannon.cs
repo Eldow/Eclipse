@@ -8,11 +8,11 @@ public class Cannon : MonoBehaviour, ActivableInterface {
     private Animator anim;
     private Animator childAnim;
     private Coroutine shootingRoutine;
-    private AudioSource audio;
+    private AudioSource sound;
 	// Use this for initialization
 	void Start () {
         anim = gameObject.GetComponent<Animator>();
-        audio = gameObject.GetComponent<AudioSource>();
+        sound = gameObject.GetComponent<AudioSource>();
         childAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
         if (firing)
         {
@@ -31,7 +31,7 @@ public class Cannon : MonoBehaviour, ActivableInterface {
         while (true)
         {
             yield return new WaitForSeconds(shootRate);
-            audio.Play();
+            sound.Play();
             Instantiate(fireball);
         }
     }

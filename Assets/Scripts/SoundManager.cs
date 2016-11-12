@@ -26,9 +26,16 @@ public class SoundManager : MonoBehaviour
     }
 
 
+    public void PlayMusic(AudioClip clip)
+    {
+        musicSource = Camera.main.GetComponents<AudioSource>()[1];
+        musicSource.clip = clip;
+        musicSource.Play();
+    }
     //Used to play single sound clips.
     public void PlaySingle(AudioClip clip)
     {
+        efxSource = Camera.main.GetComponents<AudioSource>()[0];
         //Set the clip of our efxSource audio source to the clip passed in as a parameter.
         efxSource.clip = clip;
 
@@ -40,6 +47,7 @@ public class SoundManager : MonoBehaviour
     //RandomizeSfx chooses randomly between various audio clips and slightly changes their pitch.
     public void RandomizeSfx(params AudioClip[] clips)
     {
+        efxSource = Camera.main.GetComponents<AudioSource>()[0];
         //Generate a random number between 0 and the length of our array of clips passed in.
         int randomIndex = Random.Range(0, clips.Length);
 

@@ -17,6 +17,7 @@ public class Switcher : MonoBehaviour
     private List<GameObject> backLightCircles;
     public GameObject prof;
     public GameObject profShadow;
+    public AudioClip deathSound;
 
     void Awake()
     {
@@ -118,5 +119,23 @@ public class Switcher : MonoBehaviour
             o.GetComponent<Collider2D>().enabled = enable;
         }
     }
+    public void KillPlayer(GameObject o)
+    {
+       StartCoroutine(Kill(o));
+    }
+
+    IEnumerator Kill(GameObject player)
+    {
+        GameObject o = player;
+        if(o.Equals(currentPlayer))
+            SoundManager.instance.RandomizeSfx(deathSound);
+        if (o.Equals(prof) || o.Equals(profShadow))
+            o.GetComponent<Animator>().SetBool("dead", true);
+        yield return new WaitForSeconds(0.7f);
+        Destroy(o);
+        if (player.Equals(currentPlayer))
+            Stage.instance.ResetStage();
+    }
+
 }
 
