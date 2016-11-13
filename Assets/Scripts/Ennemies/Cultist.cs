@@ -35,7 +35,7 @@ public class Cultist : MonoBehaviour, MovableInterface {
 
     IEnumerator AnimateAttack(GameObject o)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         Switcher.instance.KillPlayer(o);
     }
     void OnCollisionEnter2D(Collision2D other)
