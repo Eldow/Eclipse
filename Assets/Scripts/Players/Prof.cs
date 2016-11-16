@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Prof : MonoBehaviour, PlayerInterface {
+public class Prof : MonoBehaviour, PlayerInterface
+{
 
     public float MAX_SPEED;
     public float speed;
@@ -21,21 +22,24 @@ public class Prof : MonoBehaviour, PlayerInterface {
     private GroundCollider groundCollider;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         groundCollider = GetComponentInChildren<GroundCollider>();
         anim.SetBool("dead", false);
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         //Animation utils
         anim.SetFloat("speed", speed);
         anim.SetBool("grounded", grounded);
         anim.SetBool("asleep", asleep);
         anim.SetBool("activating", activating);
         anim.SetBool("onLadder", onLadder);
+        anim.SetBool("pushing", pushing);
         if (Switcher.instance.currentPlayer.Equals(gameObject) && !activating && !asleep)
         {
             if (!onLadder)
@@ -128,5 +132,20 @@ public class Prof : MonoBehaviour, PlayerInterface {
     {
         asleep = true;
         GetComponent<Collider2D>().enabled = false;
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            pushing = true;
+        }
+    }
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            pushing = false;
+        }
     }
 }

@@ -67,6 +67,7 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
             anim.SetFloat("speed", Switcher.instance.prof.GetComponent<Prof>().speed);
             anim.SetBool("grounded", Switcher.instance.prof.GetComponent<Prof>().grounded);
             anim.SetBool("onLadder", Switcher.instance.prof.GetComponent<Prof>().onLadder);
+            anim.SetBool("pushing", Switcher.instance.prof.GetComponent<Prof>().pushing);
         }
     }
 

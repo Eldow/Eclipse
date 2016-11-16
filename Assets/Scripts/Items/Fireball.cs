@@ -11,6 +11,7 @@ public class Fireball : MonoBehaviour {
 	void Start () {
         //body = gameObject.GetComponent<Rigidbody2D>();
         render = gameObject.GetComponent<SpriteRenderer>();
+        StartCoroutine(TimedDeath());
 	}
 	
 	// Update is called once per frame
@@ -19,6 +20,12 @@ public class Fireball : MonoBehaviour {
             transform.position = new Vector2(transform.position.x + speed * Time.deltaTime * flip, transform.position.y);
         else
             transform.position = new Vector2(transform.position.x, transform.position.y + speed * Time.deltaTime * flip);
+    }
+
+    IEnumerator TimedDeath()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
     }
     IEnumerator BreakBlock(GameObject o)
     {
@@ -42,6 +49,7 @@ public class Fireball : MonoBehaviour {
             StartCoroutine(BreakBlock(other.gameObject));
         } else
         {
+            render.enabled = false;
             Destroy(gameObject);
         }
     }
