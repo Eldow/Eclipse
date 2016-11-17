@@ -32,6 +32,28 @@ public class Cannon : MonoBehaviour, ActivableInterface {
         {
             yield return new WaitForSeconds(shootRate);
             sound.Play();
+            Vector3 offset = new Vector3(0, 0, 0);
+            if (fireball.GetComponent<Fireball>().vertical)
+            {
+                if(fireball.GetComponent<Fireball>().flip > 0)
+                {
+                    offset.y = 1.8f;
+                } else
+                {
+                    offset.y = -1.8f;
+                }
+            } else
+            {
+                if (fireball.GetComponent<Fireball>().flip > 0)
+                {
+                    offset.x = 1.8f;
+                }
+                else
+                {
+                    offset.x = -1.8f;
+                }
+            }
+            fireball.transform.position = gameObject.transform.position + offset;
             Instantiate(fireball);
         }
     }

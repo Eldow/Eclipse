@@ -8,7 +8,7 @@ public class Beetle : MonoBehaviour, PlayerInterface {
     public float decel;
     public bool grounded;
     public bool activating;
-
+    public bool pushing;
     public bool damaged;
 
     private Rigidbody2D body;
@@ -36,8 +36,10 @@ public class Beetle : MonoBehaviour, PlayerInterface {
         //Animation utils
         anim.SetFloat("speed", speed);
         anim.SetBool("grounded", grounded);
+        anim.SetBool("pushing", pushing);
         shadowAnim.SetFloat("speed", speed);
         shadowAnim.SetBool("grounded", grounded);
+        shadowAnim.SetBool("pushing", pushing);
         if (Switcher.instance.currentPlayer.Equals(gameObject) && !activating)
         {
 
@@ -82,5 +84,20 @@ public class Beetle : MonoBehaviour, PlayerInterface {
     public void Idle()
     {
         speed = 0;
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            pushing = true;
+        }
+    }
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            pushing = false;
+        }
     }
 }

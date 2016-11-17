@@ -19,7 +19,8 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
     private GroundCollider groundCollider;
     private WallCollider wallCollider;
     private SpriteRenderer render;
-    private float key, lastKey;
+    private float key;
+    private bool doubleJump;
 
     // Use this for initialization
     void Start()
@@ -32,8 +33,7 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
         anim.SetBool("dead", false);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (!disabled && body != null)
         {
@@ -57,9 +57,8 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
             }
             //Vertical movement
             Jump();
-            //Horizontal movement
-            Move();
-        } else
+        }
+        else
         {
             //Animation utils
             render.flipX = Switcher.instance.currentPlayer.GetComponent<SpriteRenderer>().flipX;
@@ -67,34 +66,58 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
             anim.SetFloat("speed", Switcher.instance.prof.GetComponent<Prof>().speed);
             anim.SetBool("grounded", Switcher.instance.prof.GetComponent<Prof>().grounded);
             anim.SetBool("onLadder", Switcher.instance.prof.GetComponent<Prof>().onLadder);
+            anim.SetBool("pushing", Switcher.instance.prof.GetComponent<Prof>().pushing);
+        }
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!disabled && body != null)
+        {
+            if (Switcher.instance.currentPlayer.Equals(gameObject))
+            {
+                if (!Switcher.instance.IsInsideLightLayer())
+                {
+                    Switcher.instance.EnableLightColliders(true);
+                }
+                else
+                {
+                    Switcher.instance.EnableLightColliders(false);
+                }
+            }
+            //Horizontal movement
+            Move();
         }
     }
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (grounded)
         {
-            if (grounded)
+            doubleJump = true;
+        }
+        if (Input.GetButtonDown("Jump") && grounded)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpPower);
+            grounded = false;
+        }
+        if (Input.GetButtonDown("Jump") && doubleJump && !grounded)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpPower);
+            doubleJump = false;
+        }
+        if (walled && !grounded)
+        {
+            if (render.flipX)
+                key = -1f;
+            else
+                key = 1f;
+            if (Input.GetAxisRaw("Horizontal").Equals(key) && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical") > 0)
             {
-                body.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
-                grounded = false;
+                body.velocity = new Vector2(-body.velocity.x, Mathf.Abs(body.velocity.y));
+                body.velocity = new Vector2(body.velocity.x, jumpPower);
             }
-        }
-        if (!GetComponent<SpriteRenderer>().flipX)
-        {
-            key = 1f;
-        }
-        else
-        {
-            key = -1f;
-        }
-        if (Input.GetAxisRaw("Horizontal") == key && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical")>0 && !grounded && walled && key != lastKey)
-        {
-            body.velocity = (new Vector2(-body.velocity.x, Mathf.Abs(body.velocity.y)));
-            body.AddForce(new Vector2(0, jumpPower/2), ForceMode2D.Impulse);
-            lastKey = key;
-        }
-       
+        }       
     }
     void Move()
     {
