@@ -15,7 +15,7 @@ public class Ladder : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.Equals(Switcher.instance.prof) && !triggered)
+        if (other.gameObject.Equals(Switcher.instance.prof))
         {
             Switcher.instance.prof.GetComponent<Prof>().onLadder = true;
             triggered = true;

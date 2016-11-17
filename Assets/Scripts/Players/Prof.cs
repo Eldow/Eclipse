@@ -61,13 +61,10 @@ public class Prof : MonoBehaviour, PlayerInterface
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && !asleep)
+        if (Input.GetButtonDown("Jump") && grounded)
         {
-            if (grounded)
-            {
-                body.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
-                grounded = false;
-            }
+            body.AddForce(new Vector3(0, jumpPower, 0), ForceMode2D.Impulse);
+            grounded = false;
         }
     }
     void Move()

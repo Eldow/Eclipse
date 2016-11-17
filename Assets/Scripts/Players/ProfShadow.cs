@@ -73,29 +73,28 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && grounded)
         {
-            if (grounded)
+            body.AddForce(new Vector3(0, jumpPower, 0), ForceMode2D.Impulse);
+            grounded = false;
+        }
+        if (walled)
+        {
+            if (!GetComponent<SpriteRenderer>().flipX)
             {
-                body.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
-                grounded = false;
+                key = 1f;
             }
-        }
-        if (!GetComponent<SpriteRenderer>().flipX)
-        {
-            key = 1f;
-        }
-        else
-        {
-            key = -1f;
-        }
-        if (Input.GetAxisRaw("Horizontal") == key && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical")>0 && !grounded && walled && key != lastKey)
-        {
-            body.velocity = (new Vector2(-body.velocity.x, Mathf.Abs(body.velocity.y)));
-            body.AddForce(new Vector2(0, jumpPower/2), ForceMode2D.Impulse);
-            lastKey = key;
-        }
-       
+            else
+            {
+                key = -1f;
+            }
+            if (Input.GetAxisRaw("Horizontal") == key && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical") > 0 && !grounded && key != lastKey)
+            {
+                body.velocity = (new Vector2(-body.velocity.x, Mathf.Abs(body.velocity.y)));
+                body.AddForce(new Vector2(0, jumpPower / 2), ForceMode2D.Impulse);
+                lastKey = key;
+            }
+        }       
     }
     void Move()
     {
