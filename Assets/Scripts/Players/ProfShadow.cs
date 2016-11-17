@@ -32,8 +32,7 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
         anim.SetBool("dead", false);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (!disabled && body != null)
         {
@@ -57,9 +56,8 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
             }
             //Vertical movement
             Jump();
-            //Horizontal movement
-            Move();
-        } else
+        }
+        else
         {
             //Animation utils
             render.flipX = Switcher.instance.currentPlayer.GetComponent<SpriteRenderer>().flipX;
@@ -70,15 +68,35 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
             anim.SetBool("pushing", Switcher.instance.prof.GetComponent<Prof>().pushing);
         }
     }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!disabled && body != null)
+        {
+            if (Switcher.instance.currentPlayer.Equals(gameObject))
+            {
+                if (!Switcher.instance.IsInsideLightLayer())
+                {
+                    Switcher.instance.EnableLightColliders(true);
+                }
+                else
+                {
+                    Switcher.instance.EnableLightColliders(false);
+                }
+            }
+            //Horizontal movement
+            Move();
+        }
+    }
 
     void Jump()
     {
         if (Input.GetButtonDown("Jump") && grounded)
         {
-            body.AddForce(new Vector3(0, jumpPower, 0), ForceMode2D.Impulse);
+            body.velocity = new Vector2(body.velocity.x, jumpPower);
             grounded = false;
         }
-        if (walled)
+        if (walled && !grounded)
         {
             if (!GetComponent<SpriteRenderer>().flipX)
             {
@@ -88,7 +106,7 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
             {
                 key = -1f;
             }
-            if (Input.GetAxisRaw("Horizontal") == key && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical") > 0 && !grounded && key != lastKey)
+            if (Input.GetAxisRaw("Horizontal") == key && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical") > 0 && key != lastKey)
             {
                 body.velocity = (new Vector2(-body.velocity.x, Mathf.Abs(body.velocity.y)));
                 body.AddForce(new Vector2(0, jumpPower / 2), ForceMode2D.Impulse);

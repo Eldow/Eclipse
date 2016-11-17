@@ -29,9 +29,7 @@ public class Prof : MonoBehaviour, PlayerInterface
         groundCollider = GetComponentInChildren<GroundCollider>();
         anim.SetBool("dead", false);
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         //Animation utils
         anim.SetFloat("speed", speed);
@@ -48,6 +46,23 @@ public class Prof : MonoBehaviour, PlayerInterface
                 grounded = groundCollider.grounded;
                 //Vertical movement
                 Jump();
+            }
+            else
+            {
+                body.gravityScale = 0f;
+                MoveOnLadder();
+            }
+        }
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (Switcher.instance.currentPlayer.Equals(gameObject) && !activating && !asleep)
+        {
+            if (!onLadder)
+            {
+                body.gravityScale = 1f;
+                grounded = groundCollider.grounded;
                 //Horizontal movement
                 Move();
             }
@@ -63,7 +78,7 @@ public class Prof : MonoBehaviour, PlayerInterface
     {
         if (Input.GetButtonDown("Jump") && grounded)
         {
-            body.AddForce(new Vector3(0, jumpPower, 0), ForceMode2D.Impulse);
+            body.velocity = new Vector2(body.velocity.x, jumpPower);
             grounded = false;
         }
     }

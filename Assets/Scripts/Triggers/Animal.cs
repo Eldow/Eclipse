@@ -27,21 +27,21 @@ public class Animal : MonoBehaviour
     IEnumerator WaitForEnter()
     {
         entered = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         entered = true;
     }
     IEnumerator WaitForExit()
     {
         exited = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         if(animal != null)
             animal.Idle();
         exited = false;
         entered = false;
     }
-    void OnCollisionStay2D(Collision2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.Equals(Switcher.instance.profShadow) && !exited && !entered)
+        if (other.gameObject.Equals(Switcher.instance.profShadow) && Input.GetButtonDown("Switch") && !exited && !entered)
         {
             Switcher.instance.SetCurrentPlayer(gameObject.transform.parent.gameObject);
             Switcher.instance.profShadow.SetActive(false);
