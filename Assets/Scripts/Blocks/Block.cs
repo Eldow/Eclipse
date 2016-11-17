@@ -8,6 +8,7 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     public float direction;
     private Rigidbody2D body;
     private bool sticky;
+    private Vector2 positionMover;
     // Use this for initialization
     void Start()
     {
@@ -26,10 +27,11 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
 
     void Move()
     {
-        if(horizontal)
-            body.MovePosition(new Vector2(transform.position.x + speed * Time.deltaTime * direction, transform.position.y));
+        if (horizontal)
+            positionMover = new Vector2(transform.parent.position.x + speed * Time.deltaTime * direction, transform.parent.position.y);
         else
-            body.MovePosition(new Vector2(transform.position.x, transform.position.y + speed * Time.deltaTime * direction));
+            positionMover = new Vector2(transform.parent.position.x, transform.parent.position.y + speed * Time.deltaTime * direction);
+        transform.parent.position = (positionMover);
     }
 
     public void Flip()
@@ -49,5 +51,12 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     void OnCollisionStay2D(Collision2D other)
     {
         sticky = true;
+        other.transform.parent = transform.parent;
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        sticky = false;
+        other.transform.parent = null;
     }
 }
