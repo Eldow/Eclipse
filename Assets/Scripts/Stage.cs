@@ -23,7 +23,6 @@ public class Stage : MonoBehaviour {
         //Set Stage to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
         SoundManager.instance.PlayMusic(stageMusic);
-        data.stage = 1;
         Save();
         Switcher.instance.prof = GameObject.Find("Prof");
         Switcher.instance.profShadow = GameObject.Find("ProfShadow");

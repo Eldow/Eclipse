@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FriableBlock : MonoBehaviour {
+public class FriableBlock : MonoBehaviour, ActivableInterface {
 
 	// Use this for initialization
 	void Start () {
@@ -12,4 +12,21 @@ public class FriableBlock : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void Activate()
+    {
+
+    }
+
+    public void Desactivate()
+    {
+        StartCoroutine(BreakBlock());
+    }
+
+    IEnumerator BreakBlock()
+    {
+        gameObject.GetComponent<Animator>().SetBool("broken", true);
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
+    }
 }
