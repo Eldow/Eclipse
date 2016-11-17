@@ -19,7 +19,8 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
     private GroundCollider groundCollider;
     private WallCollider wallCollider;
     private SpriteRenderer render;
-    private float key, lastKey;
+    private float key;
+    private bool doubleJump;
 
     // Use this for initialization
     void Start()
@@ -91,26 +92,30 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
 
     void Jump()
     {
+        if (grounded)
+        {
+            doubleJump = true;
+        }
         if (Input.GetButtonDown("Jump") && grounded)
         {
             body.velocity = new Vector2(body.velocity.x, jumpPower);
             grounded = false;
         }
+        if (Input.GetButtonDown("Jump") && doubleJump && !grounded)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpPower);
+            doubleJump = false;
+        }
         if (walled && !grounded)
         {
-            if (!GetComponent<SpriteRenderer>().flipX)
-            {
-                key = 1f;
-            }
-            else
-            {
+            if (render.flipX)
                 key = -1f;
-            }
-            if (Input.GetAxisRaw("Horizontal") == key && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical") > 0 && key != lastKey)
+            else
+                key = 1f;
+            if (Input.GetAxisRaw("Horizontal").Equals(key) && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical") > 0)
             {
-                body.velocity = (new Vector2(-body.velocity.x, Mathf.Abs(body.velocity.y)));
-                body.AddForce(new Vector2(0, jumpPower / 2), ForceMode2D.Impulse);
-                lastKey = key;
+                body.velocity = new Vector2(-body.velocity.x, Mathf.Abs(body.velocity.y));
+                body.velocity = new Vector2(body.velocity.x, jumpPower);
             }
         }       
     }

@@ -6,7 +6,7 @@ public class Trapdoor : MonoBehaviour, ActivableInterface {
     private Animator childAnim;
     private Collider2D coll;
     private Collider2D childColl;
-    bool activated;
+    public bool activated;
 	// Use this for initialization
 	void Start () {
         anim = gameObject.GetComponent<Animator>();
