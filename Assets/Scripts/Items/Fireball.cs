@@ -49,8 +49,11 @@ public class Fireball : MonoBehaviour {
             StartCoroutine(BreakBlock(other.gameObject));
         } else
         {
-            render.enabled = false;
-            Destroy(gameObject);
+            if (other.gameObject.layer.Equals(8))
+            {
+                render.enabled = false;
+                Destroy(gameObject);
+            }
         }
     }
 }

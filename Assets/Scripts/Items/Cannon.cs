@@ -37,20 +37,20 @@ public class Cannon : MonoBehaviour, ActivableInterface {
             {
                 if(fireball.GetComponent<Fireball>().flip > 0)
                 {
-                    offset.y = 1.5f;
+                    offset.y = 1.8f;
                 } else
                 {
-                    offset.y = -1.5f;
+                    offset.y = -1.8f;
                 }
             } else
             {
                 if (fireball.GetComponent<Fireball>().flip > 0)
                 {
-                    offset.x = 1.5f;
+                    offset.x = 1.8f;
                 }
                 else
                 {
-                    offset.x = -1.5f;
+                    offset.x = -1.8f;
                 }
             }
             fireball.transform.position = gameObject.transform.position + offset;
