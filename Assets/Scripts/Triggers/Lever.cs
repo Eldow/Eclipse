@@ -65,13 +65,16 @@ public class Lever : MonoBehaviour {
             //Here do the action - switch light etc.
             foreach (ActivableInterface a in activableTargets)
             {
-                if (!activated)
+                if (a !=null)
                 {
-                    a.Activate();
-                }
-                else
-                {
-                    a.Desactivate();
+                    if (!activated)
+                    {
+                        a.Activate();
+                    }
+                    else
+                    {
+                        a.Desactivate();
+                    }
                 }
             }
             triggered = true;
