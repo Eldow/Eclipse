@@ -136,14 +136,12 @@ public class Prof : MonoBehaviour, PlayerInterface
     }
     public void Enable()
     {
-        GetComponent<Collider2D>().enabled = true;
         asleep = false;
         grounded = true;
     }
     public void Disable()
     {
         asleep = true;
-        GetComponent<Collider2D>().enabled = false;
     }
 
     void OnCollisionEnter2D(Collision2D other)

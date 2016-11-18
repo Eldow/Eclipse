@@ -70,11 +70,13 @@ public class Switcher : MonoBehaviour
         currentPlayer = player;
         if (currentPlayer.Equals(profShadow))
         {
+            profShadow.transform.parent = null;
             profShadow.GetComponent<SpriteRenderer>().enabled = true;
             prof.GetComponent<Prof>().Disable();
         }
         if (currentPlayer.Equals(prof))
         {
+            profShadow.transform.parent = prof.transform;
             profShadow.transform.position = prof.transform.position + new Vector3(0, 2.48f);
             profShadow.GetComponent<SpriteRenderer>().enabled = true;
             profShadow.GetComponent<ProfShadow>().Disable();
