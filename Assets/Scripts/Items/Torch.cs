@@ -23,6 +23,10 @@ public class Torch : MonoBehaviour, ActivableInterface {
         StartCoroutine(WaitForSwitch());
     }
 
+    public bool isActivated()
+    {
+        return lightCircle.GetComponent<LightCircle>().activated;
+    }
     IEnumerator WaitForSwitch()
     {
         lightCircle.GetComponent<LightCircle>().activated = false;

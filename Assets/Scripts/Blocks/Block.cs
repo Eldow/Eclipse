@@ -38,6 +38,10 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
         direction = -direction;
     }
 
+    public bool isActivated()
+    {
+        return activated;
+    }
     public void Activate()
     {
         activated = true;

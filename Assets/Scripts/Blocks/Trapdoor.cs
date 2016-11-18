@@ -21,6 +21,10 @@ public class Trapdoor : MonoBehaviour, ActivableInterface {
 
 	}
 
+    public bool isActivated()
+    {
+        return activated;
+    }
     public void Activate()
     {
         activated = false;

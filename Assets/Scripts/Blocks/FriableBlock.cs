@@ -13,6 +13,10 @@ public class FriableBlock : MonoBehaviour, ActivableInterface {
 	
 	}
 
+    public bool isActivated()
+    {
+        return true;
+    }
     public void Activate()
     {
 

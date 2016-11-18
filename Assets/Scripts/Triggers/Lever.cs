@@ -61,13 +61,13 @@ public class Lever : MonoBehaviour {
         {
             player.Activate();
             yield return new WaitForSeconds(0.5f);
-            //player.Desactivate();
+            player.Desactivate();
             //Here do the action - switch light etc.
             foreach (ActivableInterface a in activableTargets)
             {
                 if (a !=null)
                 {
-                    if (!activated)
+                    if (!a.isActivated())
                     {
                         a.Activate();
                     }

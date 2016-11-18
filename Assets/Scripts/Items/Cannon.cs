@@ -57,7 +57,10 @@ public class Cannon : MonoBehaviour, ActivableInterface {
             Instantiate(fireball);
         }
     }
-
+    public bool isActivated()
+    {
+        return firing;
+    }
     public void Activate()
     {
         firing = true;
