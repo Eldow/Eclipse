@@ -34,15 +34,18 @@ public class Lever : MonoBehaviour {
         sound = gameObject.GetComponent<AudioSource>();
     }
 
-    //Update
+    void Update()
+    {
+        //Link to animations parameters
+        anim.SetBool("activated", activated);
+        linkedLever.GetComponent<Animator>().SetBool("activated", activated);
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.Equals(Switcher.instance.currentPlayer))
         {
             player = other.gameObject.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
-            //Link to animations parameters
-            anim.SetBool("activated", activated);
-            linkedLever.GetComponent<Animator>().SetBool("activated", activated);
             //If player is colliding the trigger & pressing down key
             if (triggered && Input.GetButtonDown("Action"))
             {
