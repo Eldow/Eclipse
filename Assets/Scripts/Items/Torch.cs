@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Torch : MonoBehaviour, ActivableInterface {
-    private GameObject lightCircle;
+    public GameObject lightCircle;
 	// Use this for initialization
 	void Start () {
         lightCircle = gameObject.transform.GetChild(0).gameObject;
@@ -14,8 +14,9 @@ public class Torch : MonoBehaviour, ActivableInterface {
 
     public void Activate()
     {
-        lightCircle.GetComponent<LightCircle>().activated = true;
         lightCircle.SetActive(true);
+        lightCircle.GetComponent<LightCircle>().activated = true;
+        Switcher.instance.SetupLightCircles();
     }
 
     public void Desactivate()
@@ -25,7 +26,13 @@ public class Torch : MonoBehaviour, ActivableInterface {
 
     public bool isActivated()
     {
-        return lightCircle.GetComponent<LightCircle>().activated;
+        if(lightCircle.activeSelf)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
     IEnumerator WaitForSwitch()
     {

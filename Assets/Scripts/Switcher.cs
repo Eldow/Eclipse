@@ -84,7 +84,7 @@ public class Switcher : MonoBehaviour
         //Camera focus
         Camera.main.GetComponent<SmoothCamera>().target = currentPlayer.GetComponent<Transform>();
     }
-    private void SetupLightCircles()
+    public void SetupLightCircles()
     {
         lightCircles = new List<GameObject>();
         backLightCircles = new List<GameObject>();

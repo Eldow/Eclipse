@@ -44,17 +44,6 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
             anim.SetFloat("speed", speed);
             anim.SetBool("walled", walled);
             anim.SetBool("grounded", grounded);
-            if (Switcher.instance.currentPlayer.Equals(gameObject))
-            {
-                if (!Switcher.instance.IsInsideLightLayer())
-                {
-                    Switcher.instance.EnableLightColliders(true);
-                }
-                else
-                {
-                    Switcher.instance.EnableLightColliders(false);
-                }
-            }
             //Vertical movement
             Jump();
         }

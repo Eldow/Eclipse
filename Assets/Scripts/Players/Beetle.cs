@@ -88,14 +88,14 @@ public class Beetle : MonoBehaviour, PlayerInterface {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Box"))
+        if (other.gameObject.CompareTag("Box") || other.gameObject.Equals(Switcher.instance.prof))
         {
             pushing = true;
         }
     }
     void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Box"))
+        if (other.gameObject.CompareTag("Box") || other.gameObject.Equals(Switcher.instance.prof))
         {
             pushing = false;
         }
