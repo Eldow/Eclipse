@@ -16,7 +16,14 @@ public class Animal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Switch") && Switcher.instance.IsInsideLightLayer() && !Switcher.instance.currentPlayer.Equals(Switcher.instance.profShadow) && entered)
+        LayerMask layerMask = (1 << 8);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1f, layerMask);
+        float distance = 1f;
+        if(hit.collider != null && hit.collider.gameObject.CompareTag("Ground"))
+        {
+            distance = Mathf.Abs(hit.point.y - transform.position.y);
+        }
+        if (Input.GetButtonDown("Switch") && Switcher.instance.IsInsideLightLayer() && !Switcher.instance.currentPlayer.Equals(Switcher.instance.profShadow) && entered && distance != 0)
         {
             Switcher.instance.profShadow.SetActive(true);   
             Switcher.instance.profShadow.transform.position = transform.position;
