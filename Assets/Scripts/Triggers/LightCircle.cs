@@ -21,8 +21,12 @@ public class LightCircle : MonoBehaviour {
             if (triggered & !swapped)
             {
                 Switcher.instance.SetCurrentPlayer(Switcher.instance.profShadow);
-                triggered = false;
+                //triggered = false;
                 swapped = true;
+            }
+            if(swapped && !triggered)
+            {
+                StartCoroutine(SwitchTo(Switcher.instance.prof));
             }
         } else
         {
@@ -43,10 +47,19 @@ public class LightCircle : MonoBehaviour {
     }
     void OnTriggerStay2D(Collider2D other)
     {
+        bool inside = true;
         if (other.gameObject.Equals(Switcher.instance.prof))
         {
-            if (gameObject.GetComponentInChildren<Collider2D>().bounds.Contains(other.bounds.min)
-                && gameObject.GetComponentInChildren<Collider2D>().bounds.Contains(other.bounds.max))
+            foreach(Collider2D coll in Switcher.instance.prof.GetComponentsInChildren<Collider2D>())
+            {
+                Debug.Log(coll);
+                if (!gameObject.GetComponent<CircleCollider2D>().bounds.Contains(coll.bounds.center))
+                {
+                    inside = false;
+                }
+                    
+            }
+            if (inside)
                 triggered = true;
         }
     }

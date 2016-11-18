@@ -6,6 +6,8 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     public bool activated;
     public bool horizontal;
     public float direction;
+    public bool once;
+    private int count;
     private Rigidbody2D body;
     private Vector2 positionMover;
     // Use this for initialization
@@ -13,6 +15,7 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     {
         body = GetComponent<Rigidbody2D>();
         body.gravityScale = 0f;
+        count = 0;
     }
 
     // Update is called once per frame
@@ -44,13 +47,28 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     }
     public void Activate()
     {
-        activated = true;
+        if (once)
+        {
+            if (count < 1)
+            {
+                activated = true;
+                count++;
+            }
+        }
+        else
+        {
+            activated = true;
+        }
     }
     public void Desactivate()
     {
         activated = false;
     }
 
+    public bool Once()
+    {
+        return once;
+    }
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Box"))

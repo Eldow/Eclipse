@@ -70,12 +70,20 @@ public class Switcher : MonoBehaviour
         currentPlayer = player;
         if (currentPlayer.Equals(profShadow))
         {
+            foreach (Collider2D coll in profShadow.GetComponents<Collider2D>())
+            {
+                coll.enabled = true;
+            }
             profShadow.transform.parent = null;
             profShadow.GetComponent<SpriteRenderer>().enabled = true;
             prof.GetComponent<Prof>().Disable();
         }
         if (currentPlayer.Equals(prof))
         {
+            foreach(Collider2D coll in profShadow.GetComponents<Collider2D>())
+            {
+                coll.enabled = false;
+            }
             profShadow.transform.parent = prof.transform;
             profShadow.transform.position = prof.transform.position + new Vector3(0, 2.48f);
             profShadow.GetComponent<SpriteRenderer>().enabled = true;

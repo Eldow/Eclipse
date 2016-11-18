@@ -5,7 +5,7 @@ public class Cultist : MonoBehaviour, MovableInterface {
     public float speed;
     public bool attacking;
     public float h;
-
+    public bool once;
     private Animator anim, childAnim;
     private SpriteRenderer render, childRender;
     private Rigidbody2D body;
@@ -33,6 +33,10 @@ public class Cultist : MonoBehaviour, MovableInterface {
         body.position = new Vector2(transform.position.x + speed * Time.deltaTime * h, transform.position.y);
     }
 
+    public bool Once()
+    {
+        return once;
+    }
     IEnumerator AnimateAttack(GameObject o)
     {
         yield return new WaitForSeconds(0.5f);
