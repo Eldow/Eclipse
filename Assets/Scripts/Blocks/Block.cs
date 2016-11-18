@@ -7,7 +7,6 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     public bool horizontal;
     public float direction;
     private Rigidbody2D body;
-    private bool sticky;
     private Vector2 positionMover;
     // Use this for initialization
     void Start()
@@ -50,13 +49,17 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
 
     void OnCollisionStay2D(Collision2D other)
     {
-        sticky = true;
-        other.transform.parent = transform.parent;
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Box"))
+        {
+            other.transform.parent = transform.parent;
+        }
     }
 
     void OnCollisionExit2D(Collision2D other)
     {
-        sticky = false;
-        other.transform.parent = null;
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Box"))
+        {
+            other.transform.parent = null;
+        }
     }
 }
