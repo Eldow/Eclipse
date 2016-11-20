@@ -24,7 +24,7 @@ public class LightCircle : MonoBehaviour {
                 //triggered = false;
                 swapped = true;
             }
-            if(swapped && !triggered)
+            if (swapped && !Switcher.instance.IsInsideLightLayer(Switcher.instance.prof))
             {
                 StartCoroutine(SwitchTo(Switcher.instance.prof));
             }

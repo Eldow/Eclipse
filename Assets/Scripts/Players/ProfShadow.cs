@@ -65,7 +65,7 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
         {
             if (Switcher.instance.currentPlayer.Equals(gameObject))
             {
-                if (!Switcher.instance.IsInsideLightLayer())
+                if (!Switcher.instance.IsInsideLightLayer(gameObject))
                 {
                     Switcher.instance.EnableLightColliders(true);
                 }

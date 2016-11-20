@@ -23,7 +23,7 @@ public class Animal : MonoBehaviour
         {
             distance = Mathf.Abs(hit.point.y - transform.position.y);
         }
-        if (Input.GetButtonDown("Switch") && Switcher.instance.IsInsideLightLayer() && !Switcher.instance.currentPlayer.Equals(Switcher.instance.profShadow) && entered && distance != 0)
+        if (Input.GetButtonDown("Switch") && Switcher.instance.IsInsideLightLayer(gameObject) && !Switcher.instance.currentPlayer.Equals(Switcher.instance.profShadow) && entered && distance != 0)
         {
             Switcher.instance.profShadow.SetActive(true);   
             Switcher.instance.profShadow.transform.position = transform.position;
