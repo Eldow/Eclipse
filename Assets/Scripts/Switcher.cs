@@ -111,11 +111,11 @@ public class Switcher : MonoBehaviour
         }
         EnableLightColliders(false);
     }
-    public bool IsInsideLightLayer()
+    public bool IsInsideLightLayer(GameObject player)
     {
         foreach (GameObject o in lightCircles)
         {
-            if (o.GetComponent<Collider2D>().bounds.Contains(currentPlayer.GetComponent<Collider2D>().bounds.center))
+            if (o.GetComponent<Collider2D>().bounds.Contains(player.GetComponent<Collider2D>().bounds.center))
             {
                 return true;
             }
