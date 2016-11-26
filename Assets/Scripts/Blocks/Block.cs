@@ -71,7 +71,7 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     }
     void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Box"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Box") || other.gameObject.CompareTag("Sticky"))
         {
             other.transform.parent = transform.parent;
         }
@@ -79,7 +79,7 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
 
     void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Box"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Box") || other.gameObject.CompareTag("Sticky"))
         {
             other.transform.parent = null;
         }
