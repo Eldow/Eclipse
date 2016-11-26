@@ -6,12 +6,14 @@ public class Sarcophagus : MonoBehaviour {
     public bool empty;
     private bool hidden;
     private Animator anim, childAnim;
-	// Use this for initialization
-	void Start () {
+    private AudioSource sound;
+    // Use this for initialization
+    void Start () {
         triggered = false;
         hidden = false;
         anim = gameObject.GetComponent<Animator>();
         childAnim = gameObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
+        sound = gameObject.GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -21,6 +23,7 @@ public class Sarcophagus : MonoBehaviour {
 	    if(triggered && Input.GetButtonDown("Action"))
         {
             triggered = false;
+            sound.Play();
             if (empty && !hidden)
             {
                 //Hide the prof

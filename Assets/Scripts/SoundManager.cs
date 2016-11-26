@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
-
+    public AudioClip[] musics;
 
     void Awake()
     {
@@ -28,9 +28,18 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic(AudioClip clip)
     {
-        musicSource = Camera.main.GetComponents<AudioSource>()[1];
-        musicSource.clip = clip;
-        musicSource.Play();
+        if(clip != null)
+        {
+            musicSource = Camera.main.GetComponents<AudioSource>()[1];
+            musicSource.clip = clip;
+            musicSource.Play();
+        }
+        else
+        {
+            int randomIndex = Random.Range(0, musics.Length);
+            musicSource.clip = musics[randomIndex];
+            musicSource.Play();
+        }
     }
     //Used to play single sound clips.
     public void PlaySingle(AudioClip clip)

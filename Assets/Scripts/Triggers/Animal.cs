@@ -6,6 +6,8 @@ public class Animal : MonoBehaviour
     private bool exited = false;
     public bool entered = false;
     private PlayerInterface animal;
+    public AudioClip switchIn;
+    public AudioClip switchOut;
 
     // Use this for initialization
     void Start()
@@ -33,12 +35,14 @@ public class Animal : MonoBehaviour
     }
     IEnumerator WaitForEnter()
     {
+        SoundManager.instance.PlaySingle(switchIn);
         entered = false;
         yield return new WaitForSeconds(0.5f);
         entered = true;
     }
     IEnumerator WaitForExit()
     {
+        SoundManager.instance.PlaySingle(switchOut);
         exited = true;
         yield return new WaitForSeconds(0.5f);
         if(animal != null)

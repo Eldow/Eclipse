@@ -6,11 +6,13 @@ public class SarcophagusShadow : MonoBehaviour {
     public bool colliding;
     public GameObject mummy;
     private Animator anim, parentAnim;
+    private AudioSource sound;
 	// Use this for initialization
 	void Start () {
         empty = gameObject.transform.parent.gameObject.GetComponent<Sarcophagus>().empty;
         anim = gameObject.GetComponent<Animator>();
         parentAnim = gameObject.transform.parent.gameObject.GetComponent<Animator>();
+        sound = gameObject.GetComponent<AudioSource>();
         colliding = false;
 	}
 	
@@ -18,6 +20,7 @@ public class SarcophagusShadow : MonoBehaviour {
 	void Update () {
         if (colliding && Input.GetButtonDown("Action") && !empty)
         {
+            sound.Play();
             StartCoroutine(SwitchToMummy());
             empty = true;
             gameObject.transform.parent.gameObject.GetComponent<Sarcophagus>().empty = true;

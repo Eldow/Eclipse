@@ -6,7 +6,7 @@ public class Plate : MonoBehaviour {
     public List<GameObject> targets;
     private List<ActivableInterface> activableTargets;
     private Animator parentAnim, childAnim;
-    private Plate childPlate;
+    //private Plate childPlate;
     private Animator anim;
     private Collider2D pressingCollider;
     public bool activated;
@@ -33,26 +33,32 @@ public class Plate : MonoBehaviour {
     //Lever's action : custom this as you want
     IEnumerator TriggerAction()
     {
-        yield return new WaitForSeconds(0.2f);
+
+        yield return new WaitForSeconds(0.5f);
         //Here do the action - switch light etc.
         foreach (ActivableInterface a in activableTargets)
         {
-            if (activated)
+            if (a != null)
             {
-                a.Activate();
-            }
-            else
-            {
-                a.Desactivate();
+                if (!a.isActivated())
+                {
+                    a.Activate();
+                }
+                else
+                {
+                    a.Desactivate();
+                }
             }
         }
+        triggered = true;
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!activated)
         {
-            if (gameObject.layer.Equals(9) && !other.gameObject.Equals(Switcher.instance.prof))
+            if (gameObject.layer.Equals(9) && !other.gameObject.Equals(Switcher.instance.prof) && !other.gameObject.Equals(Switcher.instance.profShadow))
             {
                 if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Box"))
                 {
@@ -63,7 +69,7 @@ public class Plate : MonoBehaviour {
                     parentAnim.SetBool("activated", activated);
                 }
             }
-            else
+            else if (other.gameObject.Equals(Switcher.instance.prof))
             {
                 activated = true;
                 pressingCollider = other;
