@@ -4,7 +4,7 @@ using System.Collections;
 public class SmoothCamera : MonoBehaviour
 {
 
-    public float dampTime = 0.30f;
+    public float dampTime = 5f;
     private Vector3 velocity = Vector3.zero;
     public Transform target;
 
