@@ -69,7 +69,7 @@ public class Plate : MonoBehaviour {
                     parentAnim.SetBool("activated", activated);
                 }
             }
-            else if (other.gameObject.Equals(Switcher.instance.prof))
+            else if (other.gameObject.Equals(Switcher.instance.prof) || other.gameObject.CompareTag("Box"))
             {
                 activated = true;
                 pressingCollider = other;
@@ -93,7 +93,7 @@ public class Plate : MonoBehaviour {
                     parentAnim.SetBool("activated", activated);
                 }
             }
-            else if (other.gameObject.Equals(Switcher.instance.prof))
+            else if (other.gameObject.Equals(Switcher.instance.prof) || other.gameObject.CompareTag("Box"))
             {
                 activated = false;
                 StartCoroutine(TriggerAction());

@@ -5,5 +5,6 @@ public interface MovableInterface {
 
     void Flip();
     bool Once();
+    bool IsIgnoringFlippers();
 
 }

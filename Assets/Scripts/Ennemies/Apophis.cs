@@ -9,16 +9,14 @@ public class Apophis : MonoBehaviour {
     private Animator childAnim;
     private Coroutine shootingRoutine;
     private AudioSource sound;
+    public int hp;
     // Use this for initialization
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
         sound = gameObject.GetComponent<AudioSource>();
         childAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
-        if (firing)
-        {
-            shootingRoutine = StartCoroutine(Shoot());
-        }
+        LaunchShoot(1);
     }
 
     // Update is called once per frame
@@ -26,6 +24,14 @@ public class Apophis : MonoBehaviour {
 	    
 	}
 
+    void LaunchShoot(int intensity)
+    {
+        if(intensity == 1)
+        {
+            shootRate = 2f;
+            StartCoroutine(Shoot());
+        }
+    }
     IEnumerator Shoot()
     {
         while (true)
@@ -36,29 +42,8 @@ public class Apophis : MonoBehaviour {
             anim.Play("shoot_attack");
             childAnim.Play("shoot_attack");
             sound.Play();
-            Vector3 offset = new Vector3(0, 0, 0);
-            if (poisonball.GetComponent<Fireball>().vertical)
-            {
-                if (poisonball.GetComponent<Fireball>().flip > 0)
-                {
-                    offset.y = 1.8f;
-                }
-                else
-                {
-                    offset.y = -1.8f;
-                }
-            }
-            else
-            {
-                if (poisonball.GetComponent<Fireball>().flip > 0)
-                {
-                    offset.x = 1.8f;
-                }
-                else
-                {
-                    offset.x = -1.8f;
-                }
-            }
+            float x = Random.Range(-6, 0);
+            Vector3 offset = new Vector3(x, 3, 0);
             poisonball.transform.position = gameObject.transform.position + offset;
             Instantiate(poisonball);
         }

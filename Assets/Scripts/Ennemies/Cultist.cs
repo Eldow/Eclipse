@@ -6,6 +6,7 @@ public class Cultist : MonoBehaviour, MovableInterface {
     public bool attacking;
     public float h;
     public bool once;
+    public bool ignoreFlippers;
     private Animator anim, childAnim;
     private SpriteRenderer render, childRender;
     private Rigidbody2D body;
@@ -16,6 +17,7 @@ public class Cultist : MonoBehaviour, MovableInterface {
         render = gameObject.GetComponent<SpriteRenderer>();
         childRender = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
         body = gameObject.GetComponent<Rigidbody2D>();
+        ignoreFlippers = false;
     }
 	
 	// Update is called once per frame
@@ -24,10 +26,25 @@ public class Cultist : MonoBehaviour, MovableInterface {
         anim.SetBool("attacking", attacking);
         childAnim.SetFloat("speed", speed);
         childAnim.SetBool("attacking", attacking);
-        if(!attacking)
+        if (!attacking)
             Move();
 	}
 
+    public bool IsIgnoringFlippers()
+    {
+        return ignoreFlippers;
+    }
+    public void IgnoreFlippers(bool left)
+    {
+        ignoreFlippers = true;
+        if(left && !render.flipX)
+            Flip();
+        if (!left && render.flipX)
+            Flip();
+        speed = 7f;
+        anim.SetBool("afraid", ignoreFlippers);
+        childAnim.SetBool("afraid", ignoreFlippers);
+    }
     void Move()
     {
         body.position = new Vector2(transform.position.x + speed * Time.deltaTime * h, transform.position.y);
