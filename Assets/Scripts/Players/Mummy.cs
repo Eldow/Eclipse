@@ -11,6 +11,7 @@ public class Mummy : MonoBehaviour, PlayerInterface {
     public bool grounded;
     public bool damaged;
     public bool activating;
+    private AudioSource sound;
 
     private Rigidbody2D body;
     private Animator anim, childAnim;
@@ -26,6 +27,7 @@ public class Mummy : MonoBehaviour, PlayerInterface {
         render = GetComponent<SpriteRenderer>();
         childRender = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
         groundCollider = GetComponentInChildren<GroundCollider>();
+        sound = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,9 +47,41 @@ public class Mummy : MonoBehaviour, PlayerInterface {
             Jump();
             //Horizontal movement
             Move();
+            //Fear opponents
+            Fear();
         }
     }
 
+    void Fear()
+    {
+        StartCoroutine(Effray());
+    }
+
+    IEnumerator Effray()
+    {
+       
+        Debug.Log("Trying to fear");
+        int layerMask = 1 << 8;
+        RaycastHit2D hit;
+        if(!render.flipX)
+            hit = Physics2D.Raycast(transform.position + new Vector3(-1f, 0), Vector2.left, 5f, layerMask);
+        else
+            hit = Physics2D.Raycast(transform.position + new Vector3(1f, 0), Vector2.right, 5f, layerMask);
+        Debug.Log(hit.collider);
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("Ennemy"))
+        {
+            sound.Play();
+            Debug.Log(hit.collider);
+            if(transform.position.x < hit.collider.gameObject.transform.position.x)
+            {
+                hit.collider.gameObject.GetComponent<Cultist>().IgnoreFlippers(true);
+            } else
+            {
+                hit.collider.gameObject.GetComponent<Cultist>().IgnoreFlippers(true);
+            }
+        }
+        yield return new WaitForSeconds(0.2f);
+    }
     void Jump()
     {
         if (Input.GetButtonDown("Jump"))

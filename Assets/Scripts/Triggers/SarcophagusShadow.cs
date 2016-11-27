@@ -18,7 +18,7 @@ public class SarcophagusShadow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (colliding && Input.GetButtonDown("Action") && !empty)
+        if (colliding && Input.GetButtonDown("Switch") && !empty)
         {
             sound.Play();
             StartCoroutine(SwitchToMummy());

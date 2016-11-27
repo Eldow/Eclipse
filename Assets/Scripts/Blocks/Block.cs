@@ -27,6 +27,10 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
         }
     }
 
+    public bool IsIgnoringFlippers()
+    {
+        return false;
+    }
     void Move()
     {
         if (horizontal)

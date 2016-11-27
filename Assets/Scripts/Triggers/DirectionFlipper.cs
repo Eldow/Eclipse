@@ -23,13 +23,17 @@ public class DirectionFlipper : MonoBehaviour {
             {
                 movableEntity = other.gameObject.GetComponent(typeof(MovableInterface)) as MovableInterface;
                 activableEntity = other.gameObject.GetComponent(typeof(ActivableInterface)) as ActivableInterface;
-                if (movableEntity.Once())
+                if (!movableEntity.IsIgnoringFlippers())
                 {
-                    activableEntity.Desactivate();
-                } else
-                {
-                    movableEntity.Flip();
-                    triggered = true;
+                    if (movableEntity.Once())
+                    {
+                        activableEntity.Desactivate();
+                    }
+                    else
+                    {
+                        movableEntity.Flip();
+                        triggered = true;
+                    }
                 }
             }
         }
