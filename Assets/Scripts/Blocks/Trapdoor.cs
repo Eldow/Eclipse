@@ -13,7 +13,6 @@ public class Trapdoor : MonoBehaviour, ActivableInterface {
         childAnim = gameObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
         coll = gameObject.GetComponent<Collider2D>();
         childColl = gameObject.transform.GetChild(0).gameObject.GetComponent<Collider2D>();
-        activated = false;
 	}
 	
 	// Update is called once per frame

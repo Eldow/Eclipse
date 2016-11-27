@@ -59,6 +59,7 @@ public class Sarcophagus : MonoBehaviour {
     {
         anim.SetBool("open", true);
         childAnim.SetBool("open", true);
+        Switcher.instance.prof.GetComponent<Prof>().Activate();
         yield return new WaitForSeconds(0.5f);
         anim.SetBool("open", false);
         childAnim.SetBool("open", false);

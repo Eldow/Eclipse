@@ -27,9 +27,12 @@ public class Lever : MonoBehaviour {
             linkedLever = gameObject.transform.parent.gameObject.GetComponent<Lever>();
         }
         activableTargets = new List<ActivableInterface>();
-        foreach(GameObject target in targets)
+        if(targets.Count > 0)
         {
-            activableTargets.Add(target.gameObject.GetComponent(typeof(ActivableInterface)) as ActivableInterface);
+            foreach (GameObject target in targets)
+            {
+                activableTargets.Add(target.gameObject.GetComponent(typeof(ActivableInterface)) as ActivableInterface);
+            }
         }
         sound = gameObject.GetComponent<AudioSource>();
     }

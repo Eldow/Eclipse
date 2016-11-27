@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: d824fbac3695fcc4f8e03cf6ecca91d6
-timeCreated: 1479078129
+guid: 5716f13ddc7787145a948cb2930abf4b
+timeCreated: 1480201214
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: ra_0
-    21300002: ra_1
-    21300004: ra_2
-    21300006: ra_3
+    21300000: emote_0
+    21300002: emote_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -57,54 +55,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ra_0
+      name: emote_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 19
-        height: 33
+        width: 12
+        height: 12
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: ra_1
+      name: emote_1
       rect:
         serializedVersion: 2
-        x: 30
+        x: 18
         y: 0
-        width: 19
-        height: 33
+        width: 12
+        height: 12
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: ra_2
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 0
-        width: 19
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: ra_3
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 0
-        width: 19
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

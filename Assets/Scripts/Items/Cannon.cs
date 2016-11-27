@@ -22,15 +22,17 @@ public class Cannon : MonoBehaviour, ActivableInterface {
 	
 	// Update is called once per frame
 	void Update () {
-        anim.SetBool("firing", firing);
-        childAnim.SetBool("firing", firing);
-	}
+    }
 
     IEnumerator Shoot()
     {
         while (true)
         {
+            anim.Play("idle");
+            childAnim.Play("idle");
             yield return new WaitForSeconds(shootRate);
+            anim.Play("firing");
+            childAnim.Play("firing");
             sound.Play();
             Vector3 offset = new Vector3(0, 0, 0);
             if (fireball.GetComponent<Fireball>().vertical)

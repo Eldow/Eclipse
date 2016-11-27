@@ -34,8 +34,9 @@ public class SoundManager : MonoBehaviour
             musicSource.clip = clip;
             musicSource.Play();
         }
-        else
+        else if(musics.Length > 0)
         {
+            musicSource = Camera.main.GetComponents<AudioSource>()[1];
             int randomIndex = Random.Range(0, musics.Length);
             musicSource.clip = musics[randomIndex];
             musicSource.Play();

@@ -101,9 +101,9 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
                 key = -1f;
             else
                 key = 1f;
-            if (Input.GetAxisRaw("Horizontal").Equals(key) && Input.GetButtonDown("Horizontal") && Input.GetAxis("Vertical") > 0)
+            if (Input.GetButtonDown("Jump"))
             {
-                body.velocity = new Vector2(-body.velocity.x, Mathf.Abs(body.velocity.y));
+                body.velocity = new Vector2(body.velocity.x * key, Mathf.Abs(body.velocity.y));
                 body.velocity = new Vector2(body.velocity.x, jumpPower);
             }
         }       

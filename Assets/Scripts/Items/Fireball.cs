@@ -31,8 +31,8 @@ public class Fireball : MonoBehaviour {
     {
         render.enabled = false;
         o.GetComponent<Animator>().SetBool("broken", true);
-        yield return new WaitForSeconds(0.5f);
-        Destroy(o);
+        yield return new WaitForSeconds(0.45f);
+        o.SetActive(false);
         Destroy(gameObject);
     }
 

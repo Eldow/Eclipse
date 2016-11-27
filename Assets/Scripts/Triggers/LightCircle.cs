@@ -52,7 +52,6 @@ public class LightCircle : MonoBehaviour {
         {
             foreach(Collider2D coll in Switcher.instance.prof.GetComponentsInChildren<Collider2D>())
             {
-                Debug.Log(coll);
                 if (!gameObject.GetComponent<CircleCollider2D>().bounds.Contains(coll.bounds.center))
                 {
                     inside = false;
