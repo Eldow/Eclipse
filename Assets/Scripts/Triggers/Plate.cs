@@ -17,11 +17,12 @@ public class Plate : MonoBehaviour {
             parentAnim = gameObject.transform.parent.gameObject.GetComponent<Animator>();
         if (gameObject.layer.Equals(8))
             childAnim = gameObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
-        activableTargets = new List<ActivableInterface>();
+        activableTargets = new List<ActivableInterface>();        
         foreach (GameObject target in targets)
         {
             activableTargets.Add(target.gameObject.GetComponent(typeof(ActivableInterface)) as ActivableInterface);
-        }
+            Debug.Log(target);
+        }        
         activated = false;
     }
 
@@ -72,6 +73,7 @@ public class Plate : MonoBehaviour {
             else if (other.gameObject.Equals(Switcher.instance.prof) || other.gameObject.CompareTag("Box"))
             {
                 activated = true;
+                gameObject.transform.GetChild(0).GetComponent<Plate>().activated = true;
                 pressingCollider = other;
                 StartCoroutine(TriggerAction());
                 anim.SetBool("activated", activated);
@@ -96,6 +98,7 @@ public class Plate : MonoBehaviour {
             else if (other.gameObject.Equals(Switcher.instance.prof) || other.gameObject.CompareTag("Box"))
             {
                 activated = false;
+                gameObject.transform.GetChild(0).GetComponent<Plate>().activated = false;
                 StartCoroutine(TriggerAction());
                 anim.SetBool("activated", activated);
                 childAnim.SetBool("activated", activated);
