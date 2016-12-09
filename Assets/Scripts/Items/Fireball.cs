@@ -38,6 +38,12 @@ public class Fireball : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            other.gameObject.GetComponent<Apophis>().TakeHit();
+            render.enabled = false;
+            Destroy(gameObject);
+        }
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ennemy"))
         {
             // Here, play a sound and an animation depending on what is hit

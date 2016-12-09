@@ -28,7 +28,7 @@ public class Menu : MonoBehaviour {
 
     public void Resume()
     {
-        SceneManager.LoadScene(stage+1);
+        StartCoroutine(FadedLoad(stage));
     }
 
     public void Reset()
@@ -43,9 +43,14 @@ public class Menu : MonoBehaviour {
 
     public void LoadSandbox()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(FadedLoad(1));
     }
-
+    IEnumerator FadedLoad(int stage)
+    {
+        float fadeTime = gameObject.GetComponent<Fade>().BeginFade(1);
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene(stage);
+    }
     void Load()
     {
         if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
@@ -54,7 +59,6 @@ public class Menu : MonoBehaviour {
             FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
-
             stage = data.stage;
         }
     }
@@ -67,5 +71,6 @@ public class Menu : MonoBehaviour {
         p.stage = 1;
         bf.Serialize(file, p);
         file.Close();
+        Start();
     }
 }

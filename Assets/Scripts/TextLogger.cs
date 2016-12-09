@@ -15,12 +15,34 @@ public class TextLogger : MonoBehaviour {
     private Coroutine routine;
     private bool doublePress;
     public AudioClip sound;
+    public static TextLogger instance;
+
+
+    void Awake()
+    {
+        //Check if there is already an instance of TextLogger
+        if (instance == null)
+            //if not, set it to this.
+            instance = this;
+        //If instance already exists:
+        else if (instance != this)
+            //Destroy this, this enforces our singleton pattern so there can only be one instance of TextLogger.
+            Destroy(gameObject);
+
+        //Set TextLogger to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void SetSpriteAndText(Sprite sprite, string text)
     {
+        if(routine != null)
+            StopCoroutine(routine);
+        textBox.text = "";
+        typing = false;
         head = sprite;
         message = text;
         doublePress = false;
+        activated = true;
     }
 	// Use this for initialization
 	void Start () {

@@ -5,6 +5,7 @@ public class Key : MonoBehaviour {
 
     private Door door;
     private GameObject linkedKey;
+    public AudioClip key;
 	// Use this for initialization
 	void Start () {
         if (gameObject.layer == 8)
@@ -34,6 +35,7 @@ public class Key : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            SoundManager.instance.PlaySingle(key);
             StartCoroutine(UnlockDoor());
         }
     }

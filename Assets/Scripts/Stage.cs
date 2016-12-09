@@ -22,7 +22,7 @@ public class Stage : MonoBehaviour {
 
         //Set Stage to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
-        if (stageMusic)
+        if (stageMusic != null)
             SoundManager.instance.PlayMusic(stageMusic);
         else
             SoundManager.instance.PlayMusic(null);
@@ -38,18 +38,24 @@ public class Stage : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown("escape"))
         {
-            SceneManager.LoadScene(0);
+            ResetStage();
         }
 	}
 
     public void ResetStage()
     {
-        SceneManager.LoadScene(data.stage);
+        StartCoroutine(FadedLoad(data.stage));
     }
 
+    IEnumerator FadedLoad(int stage)
+    {
+        float fadeTime = gameObject.GetComponent<Fade>().BeginFade(1);
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene(stage);
+    }
     public void NextStage()
     {
-        SceneManager.LoadScene(data.stage + 1);
+        StartCoroutine(FadedLoad(data.stage + 1));
     }
 
     void Save()
