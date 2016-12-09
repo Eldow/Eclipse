@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Apophis : MonoBehaviour {
+public class Apophis : MonoBehaviour, ActivableInterface {
     public bool firing;
     public GameObject poisonball;
     public float shootRate;
@@ -10,42 +10,102 @@ public class Apophis : MonoBehaviour {
     private Coroutine shootingRoutine;
     private AudioSource sound;
     public int hp;
+    public Sprite apoHead;
     // Use this for initialization
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
         sound = gameObject.GetComponent<AudioSource>();
         childAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
-        LaunchShoot(1);
+        TextLogger.instance.SetSpriteAndText(apoHead, "YOU ARE TOO LATE, NOW FACE MY FINAL FORM");
     }
 
     // Update is called once per frame
     void Update () {
-	    
-	}
-
-    void LaunchShoot(int intensity)
-    {
-        if(intensity == 1)
+	    if(hp <= 0)
         {
-            shootRate = 2f;
-            StartCoroutine(Shoot());
+            StartCoroutine(EndGame());
         }
+	}
+    IEnumerator EndGame()
+    {
+        Destroy(gameObject);
+        yield return new WaitForSeconds(5f);
+        TextLogger.instance.SetSpriteAndText(apoHead, "AAAAARGH NOOOOOOO I WAS GOING TO RULE THE WORLD ");
+        GetComponent<SpriteRenderer>().enabled = false;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(5f);
+        Stage.instance.NextStage();
     }
-    IEnumerator Shoot()
+    IEnumerator LaunchShoot(int intensity)
     {
         while (true)
         {
-            anim.Play("idle");
-            childAnim.Play("idle");
-            yield return new WaitForSeconds(shootRate);
             anim.Play("shoot_attack");
             childAnim.Play("shoot_attack");
-            sound.Play();
-            float x = Random.Range(-6, 0);
-            Vector3 offset = new Vector3(x, 3, 0);
-            poisonball.transform.position = gameObject.transform.position + offset;
-            Instantiate(poisonball);
+            if (intensity == 1)
+            {
+
+                var startAngle = -Mathf.FloorToInt((5 - 1) / 2) * 30;
+                for (var i = 0; i < 5; i++, startAngle += 30)
+                {
+                    Instantiate(poisonball, transform.position - new Vector3(3f, 0, 0), Quaternion.AngleAxis(startAngle, transform.forward) * transform.rotation);
+                }
+                yield return new WaitForSeconds(10f);
+            }
+            if (intensity == 2)
+            {
+                var startAngle = -Mathf.FloorToInt((5 - 1) / 2) * 30;
+                for (var i = 0; i < 5; i++, startAngle += 30)
+                {
+                    Instantiate(poisonball, transform.position - new Vector3(3f, 0, 0), Quaternion.AngleAxis(startAngle, transform.forward) * transform.rotation);
+                }
+                yield return new WaitForSeconds(5f);
+            }
+            if (intensity == 3)
+            {
+                var startAngle = -Mathf.FloorToInt((5 - 1) / 2) * 30;
+                for (var i = 0; i < 5; i++, startAngle += 30)
+                {
+                    Instantiate(poisonball, transform.position - new Vector3(3f, 0, 0), Quaternion.AngleAxis(startAngle, transform.forward) * transform.rotation);
+                }
+                yield return new WaitForSeconds(2.5f);
+            }
         }
+    }
+    public void TakeHit()
+    {
+        hp -= 34;
+        if(hp > 60)
+            TextLogger.instance.SetSpriteAndText(apoHead, "MISERABLE HUMAN, HOW CAN YOU POSSIBLY THINK YOU WILL DEFEAT ME ?!");
+        if(hp > 30)
+            TextLogger.instance.SetSpriteAndText(apoHead, "NOW FACE MY TRUE POWER");
+        StartCoroutine(TailAttack());
+    }
+
+    IEnumerator TailAttack()
+    {
+        anim.Play("tail_attack");
+        childAnim.Play("tail_attack");
+        yield return new WaitForSeconds(2f);
+    }
+    public void Activate()
+    {
+        firing = true;
+        if (hp > 66)
+            shootingRoutine = StartCoroutine(LaunchShoot(1));
+        else if(hp > 33)
+            shootingRoutine = StartCoroutine(LaunchShoot(2));
+        else if (hp > 0)
+            shootingRoutine = StartCoroutine(LaunchShoot(3));
+    }
+    public void Desactivate()
+    {
+        StopCoroutine(shootingRoutine);
+        firing = false;
+    }
+    public bool isActivated()
+    {
+        return firing;
     }
 }
