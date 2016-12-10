@@ -114,7 +114,7 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
             }
             if (Input.GetButton("Jump") && (lastKey != key || lastKey == 0))
             {
-                body.velocity = new Vector2(tempSpeed, jumpPower/1.2f);
+                body.velocity = new Vector2(tempSpeed, jumpPower/1.15f);
                 lastKey = key;
                 walled = false;
             }
