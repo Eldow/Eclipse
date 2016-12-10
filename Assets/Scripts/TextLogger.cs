@@ -16,7 +16,7 @@ public class TextLogger : MonoBehaviour {
     private bool doublePress;
     public AudioClip sound;
     public static TextLogger instance;
-
+    public GameObject logger;
 
     void Awake()
     {
@@ -35,7 +35,10 @@ public class TextLogger : MonoBehaviour {
 
     public void SetSpriteAndText(Sprite sprite, string text)
     {
-        if(routine != null)
+        logger.SetActive(true);
+        textBox = GetComponentsInChildren<Text>()[0];
+        image = GetComponentsInChildren<Image>()[1];
+        if (routine != null)
             StopCoroutine(routine);
         textBox.text = "";
         typing = false;
@@ -46,16 +49,12 @@ public class TextLogger : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        textBox = GetComponentsInChildren<Text>()[0];
-        image = GetComponentsInChildren<Image>()[1];
-        canvas = GetComponentInChildren<Canvas>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (activated && message != null)
         {
-            canvas.enabled = true;
             image.sprite = head;
             if (!typing)
             {
@@ -66,7 +65,7 @@ public class TextLogger : MonoBehaviour {
             {
                 doublePress = false;
                 activated = false;
-                canvas.enabled = false;
+                logger.SetActive(false);
                 message = null;
                 typing = false;
             }

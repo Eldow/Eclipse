@@ -19,8 +19,9 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
     private GroundCollider groundCollider;
     private WallCollider wallCollider;
     private SpriteRenderer render;
-    private float key;
+    private float key, lastKey;
     private bool doubleJump;
+    private bool facingRight = true;
 
     // Use this for initialization
     void Start()
@@ -84,6 +85,7 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
         if (grounded)
         {
             doubleJump = true;
+            lastKey = 0;
         }
         if (Input.GetButtonDown("Jump") && grounded)
         {
@@ -97,14 +99,24 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
         }
         if (walled && !grounded)
         {
+            float tempSpeed = 0f;
+            // prof looking right
             if (render.flipX)
-                key = -1f;
-            else
-                key = 1f;
-            if (Input.GetButtonDown("Jump"))
             {
-                body.velocity = new Vector2(body.velocity.x * key, Mathf.Abs(body.velocity.y));
-                body.velocity = new Vector2(body.velocity.x, jumpPower);
+                key = -1f;
+                tempSpeed = -MAX_SPEED/2;
+            }
+            // prof looking left
+            else
+            {
+                key = 1f;
+                tempSpeed = MAX_SPEED/2;
+            }
+            if (Input.GetButton("Jump") && (lastKey != key || lastKey == 0))
+            {
+                body.velocity = new Vector2(tempSpeed, jumpPower/1.2f);
+                lastKey = key;
+                walled = false;
             }
         }       
     }
@@ -113,13 +125,15 @@ public class ProfShadow : MonoBehaviour, PlayerInterface {
         float h = Input.GetAxis("Horizontal");
         if ((h < 0) && (speed < MAX_SPEED))
         {
-            render.flipX = false;
             speed = speed + accel * Time.deltaTime;
+            facingRight = false;
+            render.flipX = false;
         }
         else if ((h > 0) && (speed < MAX_SPEED))
         {
-            render.flipX = true;
             speed = speed + accel * Time.deltaTime;
+            facingRight = true;
+            render.flipX = true;
         }
         else
         {

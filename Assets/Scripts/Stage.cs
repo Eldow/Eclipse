@@ -8,6 +8,7 @@ public class Stage : MonoBehaviour {
     public PlayerData data = new PlayerData();
     public static Stage instance;
     public AudioClip stageMusic;
+    public GameObject options;
     // Use this for initialization
     void Awake()
     {
@@ -38,12 +39,16 @@ public class Stage : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown("escape"))
         {
-            ResetStage();
+            if (!options.activeInHierarchy)
+                options.SetActive(true);
+            else
+                options.SetActive(false);
         }
 	}
 
     public void ResetStage()
     {
+        options.SetActive(false);
         StartCoroutine(FadedLoad(data.stage));
     }
 
@@ -56,6 +61,21 @@ public class Stage : MonoBehaviour {
     public void NextStage()
     {
         StartCoroutine(FadedLoad(data.stage + 1));
+    }
+
+    public void MainMenu()
+    {
+        options.SetActive(false);
+        StartCoroutine(FadedLoad(0));
+    }
+
+    public void Resume()
+    {
+        options.SetActive(false);
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 
     void Save()
