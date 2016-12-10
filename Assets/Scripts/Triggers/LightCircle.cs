@@ -41,8 +41,11 @@ public class LightCircle : MonoBehaviour {
 	}
     IEnumerator SwitchTo(GameObject o)
     {
-        PlayerInterface player = Switcher.instance.currentPlayer.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
-        player.Idle();
+        if(Switcher.instance.currentPlayer != null)
+        {
+            PlayerInterface player = Switcher.instance.currentPlayer.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
+            player.Idle();
+        }
         yield return new WaitForSeconds(0.1f);
         Switcher.instance.SetCurrentPlayer(o);
         swapped = false;

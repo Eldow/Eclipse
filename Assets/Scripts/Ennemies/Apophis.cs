@@ -14,27 +14,21 @@ public class Apophis : MonoBehaviour, ActivableInterface {
     // Use this for initialization
     void Start()
     {
+        hp = 100;
         anim = gameObject.GetComponent<Animator>();
         sound = gameObject.GetComponent<AudioSource>();
         childAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
         TextLogger.instance.SetSpriteAndText(apoHead, "YOU ARE TOO LATE, NOW FACE MY FINAL FORM");
     }
 
-    // Update is called once per frame
-    void Update () {
-	    if(hp <= 0)
-        {
-            StartCoroutine(EndGame());
-        }
-	}
     IEnumerator EndGame()
     {
-        Destroy(gameObject);
-        yield return new WaitForSeconds(5f);
         TextLogger.instance.SetSpriteAndText(apoHead, "AAAAARGH NOOOOOOO I WAS GOING TO RULE THE WORLD ");
         GetComponent<SpriteRenderer>().enabled = false;
-        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-        yield return new WaitForSeconds(5f);
+        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(2f);
+        TextLogger.instance.SetSpriteAndText(apoHead, "I WILL COME BACK");
+        yield return new WaitForSeconds(2f);
         Stage.instance.NextStage();
     }
     IEnumerator LaunchShoot(int intensity)
@@ -45,7 +39,6 @@ public class Apophis : MonoBehaviour, ActivableInterface {
             childAnim.Play("shoot_attack");
             if (intensity == 1)
             {
-
                 var startAngle = -Mathf.FloorToInt((5 - 1) / 2) * 30;
                 for (var i = 0; i < 5; i++, startAngle += 30)
                 {
@@ -76,11 +69,22 @@ public class Apophis : MonoBehaviour, ActivableInterface {
     public void TakeHit()
     {
         hp -= 34;
-        if(hp > 60)
+        if (hp > 60)
+        {
             TextLogger.instance.SetSpriteAndText(apoHead, "MISERABLE HUMAN, HOW CAN YOU POSSIBLY THINK YOU WILL DEFEAT ME ?!");
-        if(hp > 30)
+            StartCoroutine(TailAttack());
+        }
+        else if (hp > 30)
+        {
             TextLogger.instance.SetSpriteAndText(apoHead, "NOW FACE MY TRUE POWER");
-        StartCoroutine(TailAttack());
+            StartCoroutine(TailAttack());
+        }
+        else if (hp <= 0)
+        {
+            StopCoroutine(shootingRoutine);
+            StartCoroutine(EndGame());
+        }
+
     }
 
     IEnumerator TailAttack()
