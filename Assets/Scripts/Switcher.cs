@@ -145,12 +145,14 @@ public class Switcher : MonoBehaviour
     IEnumerator Kill(GameObject player)
     {
         GameObject o = player;
-        SoundManager.instance.RandomizeSfx(deathSound);
+        if(o.Equals(currentPlayer) || o.Equals(prof))
+            SoundManager.instance.RandomizeSfx(deathSound);
         if (o.Equals(prof) || o.Equals(profShadow))
             o.GetComponent<Animator>().SetBool("dead", true);
         yield return new WaitForSeconds(0.7f);
         Destroy(o);
-        Stage.instance.ResetStage();
+        if (player.Equals(currentPlayer) || player.Equals(prof))
+            Stage.instance.ResetStage();
     }
 
 }
