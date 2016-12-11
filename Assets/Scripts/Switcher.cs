@@ -56,7 +56,8 @@ public class Switcher : MonoBehaviour
             if (oldPlayer.Equals(prof))
             {
                 prof.GetComponent<Prof>().Disable();
-                profShadow.GetComponent<ProfShadow>().Enable();
+                if(profShadow.GetComponent<ProfShadow>() != null)
+                    profShadow.GetComponent<ProfShadow>().Enable();
             }
             else if (oldPlayer.Equals(profShadow))
             {

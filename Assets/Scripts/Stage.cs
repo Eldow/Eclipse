@@ -37,7 +37,7 @@ public class Stage : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown("escape") && options != null)
         {
             if (!options.activeInHierarchy)
                 options.SetActive(true);
@@ -48,7 +48,8 @@ public class Stage : MonoBehaviour {
 
     public void ResetStage()
     {
-        options.SetActive(false);
+        if(options != null)
+            options.SetActive(false);
         StartCoroutine(FadedLoad(data.stage));
     }
 

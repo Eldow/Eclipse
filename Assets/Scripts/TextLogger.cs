@@ -35,6 +35,7 @@ public class TextLogger : MonoBehaviour {
 
     public void SetSpriteAndText(Sprite sprite, string text)
     {
+        StartCoroutine(HideAfterDelay());
         logger.SetActive(true);
         textBox = GetComponentsInChildren<Text>()[0];
         image = GetComponentsInChildren<Image>()[1];
@@ -51,6 +52,15 @@ public class TextLogger : MonoBehaviour {
 	void Start () {
 	}
 	
+    IEnumerator HideAfterDelay()
+    {
+        yield return new WaitForSeconds(10f);
+        doublePress = false;
+        activated = false;
+        logger.SetActive(false);
+        message = null;
+        typing = false;
+    }
 	// Update is called once per frame
 	void Update () {
         if (activated && message != null)
@@ -61,7 +71,7 @@ public class TextLogger : MonoBehaviour {
                 typing = true;
                 routine = StartCoroutine(TypeText());
             }
-            if (Input.anyKeyDown && doublePress)
+            if (Input.GetButtonDown("Action") && doublePress)
             {
                 doublePress = false;
                 activated = false;
@@ -69,7 +79,7 @@ public class TextLogger : MonoBehaviour {
                 message = null;
                 typing = false;
             }
-            if (Input.anyKeyDown)
+            if (Input.GetButtonDown("Action"))
             {
                 StopCoroutine(routine);
                 textBox.text = "";
