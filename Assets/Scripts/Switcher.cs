@@ -148,7 +148,10 @@ public class Switcher : MonoBehaviour
         if(o.Equals(currentPlayer) || o.Equals(prof))
             SoundManager.instance.RandomizeSfx(deathSound);
         if (o.Equals(prof) || o.Equals(profShadow))
-            o.GetComponent<Animator>().SetBool("dead", true);
+        {
+            prof.GetComponent<Animator>().SetBool("dead", true);
+            profShadow.GetComponent<Animator>().SetBool("dead", true);
+        }
         yield return new WaitForSeconds(0.7f);
         Destroy(o);
         if (player.Equals(currentPlayer) || player.Equals(prof))

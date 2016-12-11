@@ -23,6 +23,7 @@ public class Door : MonoBehaviour {
     {
         anim.SetBool("locked", locked);
         Switcher.instance.prof.GetComponent<Animator>().Play("victory");
+        Switcher.instance.profShadow.GetComponent<Animator>().Play("victory");
         yield return new WaitForSeconds(1.5f);
         GameObject.Find("Stage").GetComponent<Stage>().NextStage();
     }
