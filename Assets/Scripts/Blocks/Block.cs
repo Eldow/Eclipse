@@ -14,7 +14,8 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
-        body.gravityScale = 0f;
+        if(body != null)
+            body.gravityScale = 0f;
         count = 0;
     }
 

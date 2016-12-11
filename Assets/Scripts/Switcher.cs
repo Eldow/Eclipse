@@ -56,7 +56,8 @@ public class Switcher : MonoBehaviour
             if (oldPlayer.Equals(prof))
             {
                 prof.GetComponent<Prof>().Disable();
-                profShadow.GetComponent<ProfShadow>().Enable();
+                if(profShadow.GetComponent<ProfShadow>() != null)
+                    profShadow.GetComponent<ProfShadow>().Enable();
             }
             else if (oldPlayer.Equals(profShadow))
             {
@@ -78,7 +79,7 @@ public class Switcher : MonoBehaviour
             profShadow.GetComponent<SpriteRenderer>().enabled = true;
             prof.GetComponent<Prof>().Disable();
         }
-        if (currentPlayer.Equals(prof))
+        if (currentPlayer.Equals(prof) && prof != null)
         {
             foreach(Collider2D coll in profShadow.GetComponents<Collider2D>())
             {
@@ -90,9 +91,12 @@ public class Switcher : MonoBehaviour
             profShadow.GetComponent<ProfShadow>().Disable();
             prof.GetComponent<Prof>().Enable();
         }
-        currentPlayer.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-        //Camera focus
-        Camera.main.GetComponent<SmoothCamera>().target = currentPlayer.GetComponent<Transform>();
+        if(currentPlayer != null)
+        {
+            currentPlayer.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            //Camera focus
+            Camera.main.GetComponent<SmoothCamera>().target = currentPlayer.GetComponent<Transform>();
+        }
     }
     public void SetupLightCircles()
     {
@@ -113,12 +117,16 @@ public class Switcher : MonoBehaviour
     }
     public bool IsInsideLightLayer(GameObject player)
     {
-        foreach (GameObject o in lightCircles)
+        if(player != null)
         {
-            if (o.GetComponent<Collider2D>().bounds.Contains(player.GetComponent<Collider2D>().bounds.center))
+            foreach (GameObject o in lightCircles)
             {
-                return true;
+                if (o.GetComponent<Collider2D>().bounds.Contains(player.GetComponent<Collider2D>().bounds.center))
+                {
+                    return true;
+                }
             }
+            return false;
         }
         return false;
     }
@@ -137,14 +145,12 @@ public class Switcher : MonoBehaviour
     IEnumerator Kill(GameObject player)
     {
         GameObject o = player;
-        if(o.Equals(currentPlayer))
-            SoundManager.instance.RandomizeSfx(deathSound);
+        SoundManager.instance.RandomizeSfx(deathSound);
         if (o.Equals(prof) || o.Equals(profShadow))
             o.GetComponent<Animator>().SetBool("dead", true);
         yield return new WaitForSeconds(0.7f);
         Destroy(o);
-        if (player.Equals(currentPlayer))
-            Stage.instance.ResetStage();
+        Stage.instance.ResetStage();
     }
 
 }
