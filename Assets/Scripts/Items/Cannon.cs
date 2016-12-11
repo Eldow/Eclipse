@@ -57,7 +57,7 @@ public class Cannon : MonoBehaviour, ActivableInterface {
             }
             fireball.transform.position = gameObject.transform.position + offset;
             Instantiate(fireball);
-            yield return new WaitForSeconds(shootRate);
+            yield return new WaitForSeconds(shootRate - 0.5f);
             shoot = true;
             yield return new WaitForSeconds(0.5f);
         }
