@@ -88,6 +88,7 @@ public class Sarcophagus : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        triggered = false;
+        if(other.gameObject.Equals(Switcher.instance.prof) && triggered)
+            triggered = false;
     }
 }
