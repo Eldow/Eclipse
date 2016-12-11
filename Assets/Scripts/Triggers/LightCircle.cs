@@ -20,7 +20,7 @@ public class LightCircle : MonoBehaviour {
         {
             if (triggered & !swapped)
             {
-                if (!Switcher.instance.prof.GetComponent<Prof>().asleep)
+                if (Switcher.instance.prof != null && !Switcher.instance.prof.GetComponent<Prof>().asleep)
                 {
                     Switcher.instance.SetCurrentPlayer(Switcher.instance.profShadow);
                     //triggered = false;

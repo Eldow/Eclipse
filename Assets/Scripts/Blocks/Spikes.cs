@@ -13,7 +13,7 @@ public class Spikes : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.Equals(Switcher.instance.currentPlayer))
+        if (other.gameObject.Equals(Switcher.instance.currentPlayer) || other.gameObject.Equals(Switcher.instance.prof))
         {
             Switcher.instance.KillPlayer(other.gameObject);
         } else if (other.gameObject.CompareTag("Player"))
