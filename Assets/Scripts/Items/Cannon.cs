@@ -9,6 +9,7 @@ public class Cannon : MonoBehaviour, ActivableInterface {
     private Animator childAnim;
     private Coroutine shootingRoutine;
     private AudioSource sound;
+    public bool shoot;
 	// Use this for initialization
 	void Start () {
         anim = gameObject.GetComponent<Animator>();
@@ -18,21 +19,20 @@ public class Cannon : MonoBehaviour, ActivableInterface {
         {
             shootingRoutine = StartCoroutine(Shoot());
         }
+        shoot = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        anim.SetBool("firing", firing);
-        childAnim.SetBool("firing", firing);
+        anim.SetBool("firing", shoot);
+        childAnim.SetBool("firing", shoot);
     }
 
     IEnumerator Shoot()
     {
         while (true)
         {
-            firing = true;
-            yield return new WaitForSeconds(shootRate);
-            firing = false;
+            shoot = false;
             sound.Play();
             Vector3 offset = new Vector3(0, 0, 0);
             if (fireball.GetComponent<Fireball>().vertical)
@@ -57,6 +57,9 @@ public class Cannon : MonoBehaviour, ActivableInterface {
             }
             fireball.transform.position = gameObject.transform.position + offset;
             Instantiate(fireball);
+            yield return new WaitForSeconds(shootRate);
+            shoot = true;
+            yield return new WaitForSeconds(0.5f);
         }
     }
     public bool isActivated()
