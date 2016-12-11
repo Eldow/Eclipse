@@ -20,9 +20,12 @@ public class LightCircle : MonoBehaviour {
         {
             if (triggered & !swapped)
             {
-                Switcher.instance.SetCurrentPlayer(Switcher.instance.profShadow);
-                //triggered = false;
-                swapped = true;
+                if (!Switcher.instance.prof.GetComponent<Prof>().asleep)
+                {
+                    Switcher.instance.SetCurrentPlayer(Switcher.instance.profShadow);
+                    //triggered = false;
+                    swapped = true;
+                }                
             }
             if (swapped && !Switcher.instance.IsInsideLightLayer(Switcher.instance.prof))
             {
