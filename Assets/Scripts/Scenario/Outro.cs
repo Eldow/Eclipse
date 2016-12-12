@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Outro : MonoBehaviour {
     public Sprite raHead, profHead;
@@ -18,6 +19,8 @@ public class Outro : MonoBehaviour {
         TextLogger.instance.SetSpriteAndText(raHead, "How to remove it.");
         yield return new WaitForSeconds(5f);
         TextLogger.instance.SetSpriteAndText(profHead, "...");
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(9);
     }
 	// Update is called once per frame
 	void Update () {

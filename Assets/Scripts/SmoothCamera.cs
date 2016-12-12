@@ -8,6 +8,10 @@ public class SmoothCamera : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Transform target;
 
+    void Awake()
+    {
+    }
+
     // Update is called once per frame
     void Update()
     {

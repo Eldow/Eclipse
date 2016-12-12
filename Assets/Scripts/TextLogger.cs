@@ -28,15 +28,15 @@ public class TextLogger : MonoBehaviour {
         else if (instance != this)
             //Destroy this, this enforces our singleton pattern so there can only be one instance of TextLogger.
             Destroy(gameObject);
-
+        logger.SetActive(false);
      
     }
 
     public void SetSpriteAndText(Sprite sprite, string text)
     {
+        logger.SetActive(true);
         StopAllCoroutines();
         StartCoroutine(HideAfterDelay());
-        logger.SetActive(true);
         textBox = GetComponentsInChildren<Text>()[0];
         image = GetComponentsInChildren<Image>()[1];
         if (routine != null)

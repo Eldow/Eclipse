@@ -28,7 +28,7 @@ public class Stage : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("escape") && options != null)
+        if (Input.GetButtonDown("Menu") && options != null)
         {
             if (!options.activeInHierarchy)
                 options.SetActive(true);

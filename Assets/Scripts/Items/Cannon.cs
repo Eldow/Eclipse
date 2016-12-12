@@ -74,7 +74,7 @@ public class Cannon : MonoBehaviour, ActivableInterface {
 
     public void Desactivate()
     {
-        firing = false;
         StopCoroutine(shootingRoutine);
+        firing = false;
     }
 }
