@@ -26,6 +26,7 @@ public class Apophis : MonoBehaviour, ActivableInterface {
         TextLogger.instance.SetSpriteAndText(apoHead, "AAAAARGH NOOOOOOO I WAS GOING TO RULE THE WORLD ");
         GetComponent<SpriteRenderer>().enabled = false;
         transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        Destroy(gameObject.GetComponent<BoxCollider2D>());
         yield return new WaitForSeconds(2f);
         TextLogger.instance.SetSpriteAndText(apoHead, "I WILL COME BACK");
         yield return new WaitForSeconds(2f);
