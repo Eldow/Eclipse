@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Animal : MonoBehaviour
 {
-    private bool exited = false;
+    public bool exited = false;
     public bool entered = false;
     private PlayerInterface animal;
     public AudioClip switchIn;

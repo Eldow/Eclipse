@@ -97,5 +97,6 @@ public class TextLogger : MonoBehaviour {
             textBox.text += letter;
             yield return new WaitForSeconds(0.05f);
         }
+        doublePress = true;
     }
 }

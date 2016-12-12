@@ -40,7 +40,8 @@ public class Bat : MonoBehaviour, PlayerInterface {
             Fly();
         } else
         {
-            body.position = new Vector2(body.position.x, body.position.y - 0.2f);
+            if(body.velocity.y > 0)
+                body.velocity -= new Vector2(0, 1f);
         }
     }
 

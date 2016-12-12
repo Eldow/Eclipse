@@ -45,6 +45,11 @@ public class LightCircle : MonoBehaviour {
         {
             PlayerInterface player = Switcher.instance.currentPlayer.GetComponent(typeof(PlayerInterface)) as PlayerInterface;
             player.Idle();
+            if (Switcher.instance.currentPlayer.transform.GetChild(0).GetComponent<Animal>() != null)
+            {
+                Switcher.instance.currentPlayer.transform.GetChild(0).GetComponent<Animal>().entered = false;
+                Switcher.instance.currentPlayer.transform.GetChild(0).GetComponent<Animal>().exited = false;
+            }
         }
         yield return new WaitForSeconds(0.1f);
         Switcher.instance.SetCurrentPlayer(o);
