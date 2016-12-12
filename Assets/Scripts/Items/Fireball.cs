@@ -38,27 +38,31 @@ public class Fireball : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Boss"))
+        if(other.gameObject.layer == gameObject.layer || (other.gameObject.layer == 8 && gameObject.layer == 12))
         {
-            other.gameObject.GetComponent<Apophis>().TakeHit();
-            render.enabled = false;
-            Destroy(gameObject);
-        }
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ennemy"))
-        {
-            // Here, play a sound and an animation depending on what is hit
-            render.enabled = false;
-            Switcher.instance.KillPlayer(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Breakable"))
-        {
-            StartCoroutine(BreakBlock(other.gameObject));
-        } else
-        {
-            if (other.gameObject.layer.Equals(8))
+            if (other.gameObject.CompareTag("Boss"))
             {
+                other.gameObject.GetComponent<Apophis>().TakeHit();
                 render.enabled = false;
                 Destroy(gameObject);
+            }
+            if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Ennemy"))
+            {
+                // Here, play a sound and an animation depending on what is hit
+                render.enabled = false;
+                Switcher.instance.KillPlayer(other.gameObject);
+            }
+            else if (other.gameObject.CompareTag("Breakable"))
+            {
+                StartCoroutine(BreakBlock(other.gameObject));
+            }
+            else
+            {
+                if (other.gameObject.layer.Equals(8))
+                {
+                    render.enabled = false;
+                    Destroy(gameObject);
+                }
             }
         }
     }

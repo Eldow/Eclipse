@@ -29,8 +29,7 @@ public class TextLogger : MonoBehaviour {
             //Destroy this, this enforces our singleton pattern so there can only be one instance of TextLogger.
             Destroy(gameObject);
 
-        //Set TextLogger to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
-        DontDestroyOnLoad(gameObject);
+     
     }
 
     public void SetSpriteAndText(Sprite sprite, string text)

@@ -47,8 +47,7 @@ public class Menu : MonoBehaviour {
     }
     IEnumerator FadedLoad(int stage)
     {
-        float fadeTime = gameObject.GetComponent<Fade>().BeginFade(1);
-        yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(stage);
     }
     void Load()
