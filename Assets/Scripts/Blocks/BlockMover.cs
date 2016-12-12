@@ -1,0 +1,78 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class BlockMover : MonoBehaviour, MovableInterface, ActivableInterface
+{
+    public float speed;
+    public bool activated;
+    public bool horizontal;
+    public float direction;
+    public bool once;
+    private int count;
+    private Rigidbody2D body;
+    private Vector2 positionMover;
+    // Use this for initialization
+    void Start()
+    {
+        body = GetComponent<Rigidbody2D>();
+        if (body != null)
+            body.gravityScale = 0f;
+        count = 0;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (activated)
+        {
+            Move();
+        }
+    }
+
+    public bool IsIgnoringFlippers()
+    {
+        return false;
+    }
+    void Move()
+    {
+        if (horizontal)
+            positionMover = new Vector2(transform.position.x + speed * Time.deltaTime * direction, transform.position.y);
+        else
+            positionMover = new Vector2(transform.position.x, transform.position.y + speed * Time.deltaTime * direction);
+        transform.position = (positionMover);
+    }
+
+    public void Flip()
+    {
+        direction = -direction;
+    }
+
+    public bool isActivated()
+    {
+        return activated;
+    }
+    public void Activate()
+    {
+        if (once)
+        {
+            if (count < 1)
+            {
+                activated = true;
+                count++;
+            }
+        }
+        else
+        {
+            activated = true;
+        }
+    }
+    public void Desactivate()
+    {
+        activated = false;
+    }
+
+    public bool Once()
+    {
+        return once;
+    }
+}
