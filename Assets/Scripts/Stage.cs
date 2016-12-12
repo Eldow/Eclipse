@@ -12,17 +12,7 @@ public class Stage : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
-        //Check if there is already an instance of Stage
-        if (instance == null)
-            //if not, set it to this.
-            instance = this;
-        //If instance already exists:
-        else if (instance != this)
-            //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
-            Destroy(gameObject);
-
-        //Set Stage to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
-        DontDestroyOnLoad(gameObject);
+        instance = this;
         GetComponent<Fade>().alpha = 1.0f;
         if (stageMusic != null)
             SoundManager.instance.PlayMusic(stageMusic);

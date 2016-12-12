@@ -21,16 +21,7 @@ public class Switcher : MonoBehaviour
 
     void Awake()
     {
-        //Check if there is already an instance of Switcher
-        if (instance == null)
-            //if not, set it to this.
-            instance = this;
-        //If instance already exists:
-        else if (instance != this)
-            //Destroy this, this enforces our singleton pattern so there can only be one instance of Switcher.
-            Destroy(gameObject);
-        //Set Switcher to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
-        DontDestroyOnLoad(gameObject);
+        instance = this;
     }
     void Start()
     {

@@ -26,7 +26,7 @@ public class Intro : MonoBehaviour {
         yield return new WaitForSeconds(5f);
         GameObject.Find("Apophis").GetComponent<SpriteRenderer>().enabled = true;
         GameObject.Find("ApophisShadow").GetComponent<SpriteRenderer>().enabled = true;
-        TextLogger.instance.SetSpriteAndText(apoHead, "Hahahahaha ! Thank you foreigner for helping me finding this one !");
+        TextLogger.instance.SetSpriteAndText(apoHead, "Hahahahaha ! Thank you for helping me finding this one, human !");
         yield return new WaitForSeconds(5f);
         TextLogger.instance.SetSpriteAndText(raHead, "Apophis ?! No ! WAKE UP DUDE ! Don't let him steal my ...  !?");
         yield return new WaitForSeconds(5f);
@@ -36,6 +36,8 @@ public class Intro : MonoBehaviour {
         GameObject.Find("SolarDiskShadow").GetComponent<SpriteRenderer>().enabled = false;
         TextLogger.instance.SetSpriteAndText(raHead, "Oh, screw me.");
         yield return new WaitForSeconds(5f);
+        TextLogger.instance.SetSpriteAndText(raHead, "It's terrible. If you don't get back the artifact, Apophis will be able to get greater power and destroy the humanity.");
+        yield return new WaitForSeconds(15f);
         Stage.instance.NextStage();
     }
 	// Update is called once per frame

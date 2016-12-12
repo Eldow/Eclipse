@@ -34,6 +34,7 @@ public class TextLogger : MonoBehaviour {
 
     public void SetSpriteAndText(Sprite sprite, string text)
     {
+        StopAllCoroutines();
         StartCoroutine(HideAfterDelay());
         logger.SetActive(true);
         textBox = GetComponentsInChildren<Text>()[0];
@@ -53,7 +54,7 @@ public class TextLogger : MonoBehaviour {
 	
     IEnumerator HideAfterDelay()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(15f);
         doublePress = false;
         activated = false;
         logger.SetActive(false);

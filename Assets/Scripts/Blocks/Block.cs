@@ -20,7 +20,7 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (activated)
         {
@@ -40,13 +40,6 @@ public class Block : MonoBehaviour, MovableInterface, ActivableInterface {
             positionMover = new Vector2(transform.parent.position.x, transform.parent.position.y + speed * Time.deltaTime * direction);
         transform.parent.position = (positionMover);
 
-        if (transform.parent.GetComponentInChildren<Prof>() && Switcher.instance.prof.GetComponent<Prof>().speed != 0)
-        {
-            if(Switcher.instance.prof.GetComponent<SpriteRenderer>().flipX && direction != 1)
-                Switcher.instance.prof.GetComponent<Rigidbody2D>().velocity += new Vector2(positionMover.x/10, 0);
-            else if (!Switcher.instance.prof.GetComponent<SpriteRenderer>().flipX && direction == 1)
-                Switcher.instance.prof.GetComponent<Rigidbody2D>().velocity -= new Vector2(positionMover.x/10, 0);
-        }
     }
 
     public void Flip()

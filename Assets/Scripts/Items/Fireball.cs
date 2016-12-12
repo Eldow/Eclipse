@@ -38,7 +38,8 @@ public class Fireball : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.layer == gameObject.layer || (other.gameObject.layer == 8 && gameObject.layer == 12))
+        if(other.gameObject.layer == gameObject.layer || (other.gameObject.layer == 8 && gameObject.layer == 12)
+            || other.gameObject.layer == 10 && gameObject.layer == 9)
         {
             if (other.gameObject.CompareTag("Boss"))
             {
