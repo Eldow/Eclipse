@@ -16,14 +16,14 @@ public class WallCollider : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Movable"))
         {
             walled = true;
         }
     }
     void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Movable"))
         {
             walled = true;
         }

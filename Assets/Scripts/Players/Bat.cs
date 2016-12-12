@@ -38,6 +38,9 @@ public class Bat : MonoBehaviour, PlayerInterface {
         if (Switcher.instance.currentPlayer.Equals(gameObject))
         {
             Fly();
+        } else
+        {
+            body.position = new Vector2(body.position.x, body.position.y - 0.2f);
         }
     }
 

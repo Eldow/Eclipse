@@ -23,6 +23,7 @@ public class Stage : MonoBehaviour {
 
         //Set Stage to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
+        GetComponent<Fade>().alpha = 1.0f;
         if (stageMusic != null)
             SoundManager.instance.PlayMusic(stageMusic);
         else
@@ -55,8 +56,7 @@ public class Stage : MonoBehaviour {
 
     IEnumerator FadedLoad(int stage)
     {
-        float fadeTime = gameObject.GetComponent<Fade>().BeginFade(1);
-        yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(stage);
     }
     public void NextStage()

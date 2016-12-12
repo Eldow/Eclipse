@@ -106,7 +106,8 @@ public class Prof : MonoBehaviour, PlayerInterface
         {
             speed = 0;
         }
-        body.position = new Vector2(body.position.x + speed * Time.deltaTime * h, body.position.y);
+        //body.position = new Vector2(body.position.x + speed * Time.deltaTime * h, body.position.y);
+        body.velocity = new Vector2(speed * h, body.velocity.y);
     }
 
     void MoveOnLadder()

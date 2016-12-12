@@ -13,10 +13,13 @@ public class Lever : MonoBehaviour {
     private Lever linkedLever;
     private GameObject currentLever;
     private AudioSource sound;
+    public bool once = false;
+    private bool used = false;
 
     // Use this for initialization
     void Start()
     {
+        used = false;
         anim = GetComponent<Animator>();
         if (gameObject.layer == 8)
         {
@@ -63,10 +66,10 @@ public class Lever : MonoBehaviour {
     //Lever's action : custom this as you want
     IEnumerator TriggerAction()
     {
-        if(player != null)
+        if(player != null && (!once || (once && !used)))
         {
             player.Activate();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.4f);
             player.Desactivate();
             //Here do the action - switch light etc.
             foreach (ActivableInterface a in activableTargets)
@@ -83,8 +86,9 @@ public class Lever : MonoBehaviour {
                     }
                 }
             }
-            triggered = true;
+            used = true;
         }
+        triggered = true;
     }
     //Events related - set inTrigger depending of player's presence
     void OnTriggerEnter2D(Collider2D other)
